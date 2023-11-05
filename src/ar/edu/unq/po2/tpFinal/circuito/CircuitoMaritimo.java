@@ -2,7 +2,7 @@ package ar.edu.unq.po2.tpFinal.circuito;
 
 
 import ar.edu.unq.po2.tpFinal.BuqueInterface;
-import ar.edu.unq.po2.tpFinal.TerminalInterface;
+import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 
 import java.util.ArrayList;
 import java.util.List;

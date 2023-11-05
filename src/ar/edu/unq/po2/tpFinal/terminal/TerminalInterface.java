@@ -1,5 +1,8 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.terminal;
 
+import ar.edu.unq.po2.tpFinal.ConsigneeInterface;
+import ar.edu.unq.po2.tpFinal.LineaNavieraInterface;
+import ar.edu.unq.po2.tpFinal.ShipperInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 

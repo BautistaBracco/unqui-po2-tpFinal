@@ -2,6 +2,7 @@ package ar.edu.unq.po2.tpFinal;
 
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.circuito.TramoInterface;
+import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 import org.junit.Before;
 import org.junit.Test;
 
