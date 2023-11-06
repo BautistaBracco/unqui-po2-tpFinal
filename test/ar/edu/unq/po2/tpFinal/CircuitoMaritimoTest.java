@@ -19,10 +19,16 @@ public class CircuitoMaritimoTest {
     @Before
     public void setUp() {
         this.circuitoMaritimo = new CircuitoMaritimo();
-        TramoInterface tramo1 = this.mockTramo(this.mockTerminal("Buenos Aires"), this.mockTerminal("Montevideo"), 100, 1);
+        TramoInterface tramo1 = this.mockTramo(this.mockTerminal("Buenos Aires"),
+                                               this.mockTerminal("Montevideo"),
+                                               100,
+                                               1);
         TramoInterface tramo2 = this.mockTramo(this.mockTerminal("Montevideo"), this.mockTerminal("Bahia"), 100, 1);
         TramoInterface tramo3 = this.mockTramo(this.mockTerminal("Bahia"), this.mockTerminal("Rio de Janeiro"), 100, 1);
-        TramoInterface tramo4 = this.mockTramo(this.mockTerminal("Rio de Janeiro"), this.mockTerminal("Buenos Aires"), 100, 1);
+        TramoInterface tramo4 = this.mockTramo(this.mockTerminal("Rio de Janeiro"),
+                                               this.mockTerminal("Buenos Aires"),
+                                               100,
+                                               1);
 
         this.circuitoMaritimo.agregarTramo(tramo1);
         this.circuitoMaritimo.agregarTramo(tramo2);
@@ -51,9 +57,8 @@ public class CircuitoMaritimoTest {
     @Test
     public void testTramosEntreBsAsYRioDeJaneiro() {
         assertEquals(3,
-                     this.circuitoMaritimo
-                             .tramosEntre(this.mockTerminal("Buenos Aires"), this.mockTerminal("Rio de Janeiro"))
-                             .size());
+                     this.circuitoMaritimo.cantidadDeTramosEntre(this.mockTerminal("Buenos Aires"),
+                                                                 this.mockTerminal("Rio de Janeiro")));
     }
 
     @Test

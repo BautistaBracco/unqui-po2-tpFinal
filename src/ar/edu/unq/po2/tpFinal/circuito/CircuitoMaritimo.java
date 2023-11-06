@@ -41,7 +41,7 @@ public class CircuitoMaritimo {
 
 
     // si falla es porque hay al menos un tramo que no esta conectado con ninguno
-    public List<TramoInterface> tramosEntre(TerminalInterface origen, TerminalInterface destino) {
+    private List<TramoInterface> tramosEntre(TerminalInterface origen, TerminalInterface destino) {
 
         List<TramoInterface> tramos = new ArrayList<>();
         if (!this.existePuerto(origen) || !this.existePuerto(destino)) {
@@ -64,6 +64,10 @@ public class CircuitoMaritimo {
         } while (!tramoActual.getPuertoDestino().getNombre().equals(destino.getNombre()));
 
         return tramos;
+    }
+
+    public int cantidadDeTramosEntre(TerminalInterface origen, TerminalInterface destino) {
+        return this.tramosEntre(origen, destino).size();
     }
 
     public int precioEntreTramos(TerminalInterface origen, TerminalInterface destino) {
