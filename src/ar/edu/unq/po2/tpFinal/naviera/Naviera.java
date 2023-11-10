@@ -1,5 +1,6 @@
-package ar.edu.unq.po2.tpFinal;
+package ar.edu.unq.po2.tpFinal.naviera;
 
+import ar.edu.unq.po2.tpFinal.BuqueInterface;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
 import ar.edu.unq.po2.tpFinal.viaje.ViajesInterface;
 
