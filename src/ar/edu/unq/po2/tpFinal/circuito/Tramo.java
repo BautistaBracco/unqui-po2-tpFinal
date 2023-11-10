@@ -2,13 +2,15 @@ package ar.edu.unq.po2.tpFinal.circuito;
 
 import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 
+import java.time.Duration;
+
 public class Tramo implements TramoInterface {
     private final TerminalInterface puertoOrigen;
     private final TerminalInterface puertoDestino;
     private final int precio;
-    private final int tiempo;
+    private final Duration tiempo;
 
-    public Tramo(TerminalInterface puertoOrigen, TerminalInterface puertoDestino, int precio, int tiempo) {
+    public Tramo(TerminalInterface puertoOrigen, TerminalInterface puertoDestino, int precio, Duration tiempo) {
         this.puertoOrigen = puertoOrigen;
         this.puertoDestino = puertoDestino;
         this.precio = precio;
@@ -31,7 +33,7 @@ public class Tramo implements TramoInterface {
     }
 
     @Override
-    public int getTiempo() {
+    public Duration getTiempo() {
         return this.tiempo;
     }
 }

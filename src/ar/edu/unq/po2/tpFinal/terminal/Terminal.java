@@ -1,7 +1,7 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
 import ar.edu.unq.po2.tpFinal.ConsigneeInterface;
-import ar.edu.unq.po2.tpFinal.LineaNavieraInterface;
+import ar.edu.unq.po2.tpFinal.naviera.NavieraInterface;
 import ar.edu.unq.po2.tpFinal.ShipperInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
@@ -12,7 +12,7 @@ import java.util.List;
 public class Terminal implements TerminalInterface {
     private List<CamionInterface> camionesRegistrados;
     private List<ChoferInterface> choferesRegistrados;
-    private List<LineaNavieraInterface> lineasNavierasRegistradas;
+    private List<NavieraInterface> lineasNavierasRegistradas;
     private List<ShipperInterface> shippersRegistrados;
     private List<ConsigneeInterface> consigneesRegistrados;
     private String nombre;
@@ -32,7 +32,7 @@ public class Terminal implements TerminalInterface {
     }
 
     @Override
-    public void registrarLineaNaviera(LineaNavieraInterface lineaNaviera) {
+    public void registrarLineaNaviera(NavieraInterface lineaNaviera) {
         this.lineasNavierasRegistradas.add(lineaNaviera);
     }
 

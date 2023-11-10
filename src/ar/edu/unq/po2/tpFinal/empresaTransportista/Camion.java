@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.tpFinal.empresaTransportista;
 
-import ar.edu.unq.po2.tpFinal.ContenedorInterface;
+import ar.edu.unq.po2.tpFinal.container.ContainerInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Camion implements CamionInterface {
 
     private final ChoferInterface chofer;
-    private final List<ContenedorInterface> contenedores;
+    private final List<ContainerInterface> contenedores;
     private String patente;
 
     public Camion(ChoferInterface chofer, String patente) {
@@ -18,7 +18,7 @@ public class Camion implements CamionInterface {
     }
 
     @Override
-    public void agregarContenedor(ContenedorInterface contenedor) {
+    public void agregarContenedor(ContainerInterface contenedor) {
         this.contenedores.add(contenedor);
     }
 

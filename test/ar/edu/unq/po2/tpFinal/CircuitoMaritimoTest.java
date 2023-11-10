@@ -6,6 +6,8 @@ import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.time.Duration;
+
 import static junit.framework.TestCase.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -22,13 +24,20 @@ public class CircuitoMaritimoTest {
         TramoInterface tramo1 = this.mockTramo(this.mockTerminal("Buenos Aires"),
                                                this.mockTerminal("Montevideo"),
                                                100,
-                                               1);
-        TramoInterface tramo2 = this.mockTramo(this.mockTerminal("Montevideo"), this.mockTerminal("Bahia"), 100, 1);
-        TramoInterface tramo3 = this.mockTramo(this.mockTerminal("Bahia"), this.mockTerminal("Rio de Janeiro"), 100, 1);
+                                               Duration.ofDays(1));
+
+        TramoInterface tramo2 = this.mockTramo(this.mockTerminal("Montevideo"),
+                                               this.mockTerminal("Bahia"),
+                                               100,
+                                               Duration.ofDays(4));
+        TramoInterface tramo3 = this.mockTramo(this.mockTerminal("Bahia"),
+                                               this.mockTerminal("Rio de Janeiro"),
+                                               100,
+                                               Duration.ofDays(3));
         TramoInterface tramo4 = this.mockTramo(this.mockTerminal("Rio de Janeiro"),
                                                this.mockTerminal("Buenos Aires"),
                                                100,
-                                               1);
+                                               Duration.ofDays(10));
 
         this.circuitoMaritimo.agregarTramo(tramo1);
         this.circuitoMaritimo.agregarTramo(tramo2);
@@ -75,18 +84,19 @@ public class CircuitoMaritimoTest {
 
     @Test
     public void testTiempoTotalDelCircuito() {
-        assertEquals(4, this.circuitoMaritimo.tiempoTotalDelCircuito());
+        assertEquals(Duration.ofDays(18), this.circuitoMaritimo.tiempoTotalDelCircuito());
     }
 
     @Test
     public void testTiempoEntreBsAsYMontevideo() {
-        assertEquals(1,
+        assertEquals(Duration.ofDays(1),
                      this.circuitoMaritimo.tiempoEntreTramos(this.mockTerminal("Buenos Aires"),
                                                              this.mockTerminal("Montevideo")));
     }
 
 
-    private TramoInterface mockTramo(TerminalInterface origen, TerminalInterface destino, int precio, int tiempo) {
+    private TramoInterface mockTramo(TerminalInterface origen, TerminalInterface destino, int precio, Duration tiempo) {
+
         TramoInterface tramo = mock(TramoInterface.class);
         when(tramo.getPuertoOrigen()).thenReturn(origen);
         when(tramo.getPuertoDestino()).thenReturn(destino);
