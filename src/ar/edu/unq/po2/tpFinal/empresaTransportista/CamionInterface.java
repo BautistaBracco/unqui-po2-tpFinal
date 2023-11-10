@@ -1,9 +1,9 @@
 package ar.edu.unq.po2.tpFinal.empresaTransportista;
 
-import ar.edu.unq.po2.tpFinal.ContenedorInterface;
+import ar.edu.unq.po2.tpFinal.container.ContainerInterface;
 
 public interface CamionInterface {
-    void agregarContenedor(ContenedorInterface contenedor);
+    void agregarContenedor(ContainerInterface contenedor);
     ChoferInterface getChofer();
 
     int cantidadDeContenedores();

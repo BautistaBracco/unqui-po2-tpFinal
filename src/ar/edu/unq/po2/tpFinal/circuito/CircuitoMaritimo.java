@@ -4,6 +4,7 @@ package ar.edu.unq.po2.tpFinal.circuito;
 import ar.edu.unq.po2.tpFinal.BuqueInterface;
 import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -78,12 +79,21 @@ public class CircuitoMaritimo {
         return this.tramos.stream().mapToInt(tramo -> tramo.getPrecio()).sum();
     }
 
-    public int tiempoEntreTramos(TerminalInterface origen, TerminalInterface destino) {
-        return this.tramosEntre(origen, destino).stream().mapToInt(tramo -> tramo.getTiempo()).sum();
+    public Duration tiempoEntreTramos(TerminalInterface origen, TerminalInterface destino) {
+        return this
+                .tramosEntre(origen, destino)
+                .stream()
+                .reduce(Duration.ZERO,
+                        (tiempo, tramo) -> tiempo.plus(tramo.getTiempo()),
+                        (tiempo1, tiempo2) -> tiempo1.plus(tiempo2)); /* no entiendo esta parte para qué la necesito */
     }
 
-    public int tiempoTotalDelCircuito() {
-        return this.tramos.stream().mapToInt(tramo -> tramo.getTiempo()).sum();
+    public Duration tiempoTotalDelCircuito() {
+        return this.tramos
+                .stream()
+                .reduce(Duration.ZERO,
+                        (tiempo, tramo) -> tiempo.plus(tramo.getTiempo()),
+                        (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
     }
 
     private TramoInterface getTramoConOrigen(TerminalInterface origen) {
