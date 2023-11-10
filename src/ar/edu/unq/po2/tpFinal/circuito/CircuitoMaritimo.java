@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CircuitoMaritimo {
+public class CircuitoMaritimo implements CircuitoMaritimoInterface {
     private final List<TramoInterface> tramos;
     private final List<BuqueInterface> buques;
 
