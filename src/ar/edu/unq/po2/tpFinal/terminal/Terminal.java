@@ -1,21 +1,25 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
 import ar.edu.unq.po2.tpFinal.ConsigneeInterface;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
 import ar.edu.unq.po2.tpFinal.naviera.NavieraInterface;
 import ar.edu.unq.po2.tpFinal.ShipperInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Terminal implements TerminalInterface {
+    private String nombre;
     private List<CamionInterface> camionesRegistrados;
     private List<ChoferInterface> choferesRegistrados;
     private List<NavieraInterface> lineasNavierasRegistradas;
     private List<ShipperInterface> shippersRegistrados;
     private List<ConsigneeInterface> consigneesRegistrados;
-    private String nombre;
+    private List<CircuitoMaritimoInterface> circuitosMaritimos;
 
     public Terminal(String nombre) {
         this.nombre = nombre;
@@ -24,6 +28,7 @@ public class Terminal implements TerminalInterface {
         this.lineasNavierasRegistradas = new ArrayList<>();
         this.shippersRegistrados = new ArrayList<>();
         this.consigneesRegistrados = new ArrayList<>();
+        this.circuitosMaritimos = new ArrayList<>();
     }
 
     @Override
@@ -66,5 +71,13 @@ public class Terminal implements TerminalInterface {
         return this.choferesRegistrados.stream().anyMatch(c -> c.getNombre().equals(chofer.getNombre()));
     }
 
+    @Override
+    public void registrarCircuitoMaritimo(CircuitoMaritimoInterface circuitoMaritimo) {
+        this.circuitosMaritimos.add(circuitoMaritimo);
+    }
 
+
+    public CircuitoMaritimoInterface getMejorCircuito(MejorCircuitoStrategy mejorCircuitoStrategy) {
+        return mejorCircuitoStrategy.getMejorCircuito();
+    }
 }

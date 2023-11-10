@@ -41,7 +41,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
     }
 
 
-    // si falla es porque hay al menos un tramo que no esta conectado con ninguno
+    // si falla es porque hay al menos un tramo que no está conectado con ninguno
     private List<TramoInterface> tramosEntre(TerminalInterface origen, TerminalInterface destino) {
 
         List<TramoInterface> tramos = new ArrayList<>();
