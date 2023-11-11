@@ -17,6 +17,7 @@ public class ContainerReefer extends Container{
 		this.kwPorHora = kwPorHora;
 	}
 	
+	@Override
 	public int getKWPorHoras() {
 		return this.kwPorHora;
 	}
