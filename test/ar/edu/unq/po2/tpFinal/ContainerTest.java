@@ -10,7 +10,7 @@ import ar.edu.unq.po2.tpFinal.container.ContainerReefer;
 import ar.edu.unq.po2.tpFinal.container.ContainerSeco;
 import ar.edu.unq.po2.tpFinal.container.ContainerTanque;
 
-class ContainerTest {
+public class ContainerTest {
 
 	private Container containerReefer;
 	private Container containerSeco;
@@ -24,16 +24,24 @@ class ContainerTest {
 	}
 	
 	@Test
-	void testContainer() {
-//		ContainerSeco y ContainerTanque son lo mismo test que reefer en cuanto al calculo de metrosCubicos y peso.
-		assertEquals(375, containerSeco.metrosCubicos());		
+	public void testContainerSeco() {
+		assertEquals(224, containerSeco.metrosCubicos());
+		assertEquals(100, containerSeco.getPesoTotal());
+		assertEquals(0, containerSeco.getKWPorHoras());
+	}
+	
+	@Test 
+	public void testContainerTanque() {
+		assertEquals(576, containerTanque.metrosCubicos());
 		assertEquals(125, containerTanque.getPesoTotal());
+		assertEquals(0, containerTanque.getKWPorHoras());
 	}
 	
 	@Test
-	void testContainerReefer() {
-//		Se hace un casteo para utilizar el metodo de la clase ContainerReefer.
-		assertEquals(500, ((ContainerReefer) containerReefer).getKWPorHoras());
+	public void testContainerReefer() {
+		assertEquals(375, containerReefer.metrosCubicos());
+		assertEquals(150, containerReefer.getPesoTotal());
+		assertEquals(500, containerReefer.getKWPorHoras());
 	}
 	
 }

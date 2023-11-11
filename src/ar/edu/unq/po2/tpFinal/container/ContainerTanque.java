@@ -9,4 +9,9 @@ public class ContainerTanque extends Container{
 	public ContainerTanque(int ancho, int largo, int alto, int peso) {
 		super(ancho, largo, alto, peso);
 	}
+	
+	@Override
+	public int getKWPorHoras() {
+		return 0;
+	}
 }

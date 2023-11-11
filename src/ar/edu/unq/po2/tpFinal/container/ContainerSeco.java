@@ -11,4 +11,8 @@ public class ContainerSeco extends Container {
 		super(ancho, largo, alto, peso);
 	}
 	
+	@Override
+	public int getKWPorHoras() {
+		return 0;
+	}
 }

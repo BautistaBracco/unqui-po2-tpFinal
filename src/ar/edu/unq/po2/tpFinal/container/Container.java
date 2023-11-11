@@ -31,5 +31,7 @@ public abstract class Container {
 	public int metrosCubicos() {
 		return this.ancho * this.largo * this.alto;
 	}
+	
+	public abstract int getKWPorHoras();
 
 }
