@@ -1,6 +1,7 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
 import ar.edu.unq.po2.tpFinal.ConsigneeInterface;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
 import ar.edu.unq.po2.tpFinal.naviera.NavieraInterface;
 import ar.edu.unq.po2.tpFinal.ShipperInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
@@ -22,6 +23,9 @@ public interface TerminalInterface {
 
     void registrarChofer(ChoferInterface chofer);
 
+    void registrarCircuitoMaritimo(CircuitoMaritimoInterface circuitoMaritimo);
+
     boolean estaElChoferRegistrado(ChoferInterface chofer);
+
 
 }

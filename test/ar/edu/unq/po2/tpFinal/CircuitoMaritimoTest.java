@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import java.time.Duration;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,22 +22,22 @@ public class CircuitoMaritimoTest {
     public void setUp() {
         this.circuitoMaritimo = new CircuitoMaritimo();
         TramoInterface tramo1 = this.mockTramo(this.mockTerminal("Buenos Aires"),
-                                               this.mockTerminal("Montevideo"),
-                                               100,
-                                               Duration.ofDays(1));
+                this.mockTerminal("Montevideo"),
+                100,
+                Duration.ofDays(1));
 
         TramoInterface tramo2 = this.mockTramo(this.mockTerminal("Montevideo"),
-                                               this.mockTerminal("Bahia"),
-                                               100,
-                                               Duration.ofDays(4));
+                this.mockTerminal("Bahia"),
+                100,
+                Duration.ofDays(4));
         TramoInterface tramo3 = this.mockTramo(this.mockTerminal("Bahia"),
-                                               this.mockTerminal("Rio de Janeiro"),
-                                               100,
-                                               Duration.ofDays(3));
+                this.mockTerminal("Rio de Janeiro"),
+                100,
+                Duration.ofDays(3));
         TramoInterface tramo4 = this.mockTramo(this.mockTerminal("Rio de Janeiro"),
-                                               this.mockTerminal("Buenos Aires"),
-                                               100,
-                                               Duration.ofDays(10));
+                this.mockTerminal("Buenos Aires"),
+                100,
+                Duration.ofDays(10));
 
         this.circuitoMaritimo.agregarTramo(tramo1);
         this.circuitoMaritimo.agregarTramo(tramo2);
@@ -66,8 +66,8 @@ public class CircuitoMaritimoTest {
     @Test
     public void testTramosEntreBsAsYRioDeJaneiro() {
         assertEquals(3,
-                     this.circuitoMaritimo.cantidadDeTramosEntre(this.mockTerminal("Buenos Aires"),
-                                                                 this.mockTerminal("Rio de Janeiro")));
+                this.circuitoMaritimo.cantidadDeTramosEntre(this.mockTerminal("Buenos Aires"),
+                        this.mockTerminal("Rio de Janeiro")));
     }
 
     @Test
@@ -78,8 +78,8 @@ public class CircuitoMaritimoTest {
     @Test
     public void testPrecioEntreBsAsYMontevideo() {
         assertEquals(100,
-                     this.circuitoMaritimo.precioEntreTramos(this.mockTerminal("Buenos Aires"),
-                                                             this.mockTerminal("Montevideo")));
+                this.circuitoMaritimo.precioEntreTramos(this.mockTerminal("Buenos Aires"),
+                        this.mockTerminal("Montevideo")));
     }
 
     @Test
@@ -90,8 +90,8 @@ public class CircuitoMaritimoTest {
     @Test
     public void testTiempoEntreBsAsYMontevideo() {
         assertEquals(Duration.ofDays(1),
-                     this.circuitoMaritimo.tiempoEntreTramos(this.mockTerminal("Buenos Aires"),
-                                                             this.mockTerminal("Montevideo")));
+                this.circuitoMaritimo.tiempoEntreTramos(this.mockTerminal("Buenos Aires"),
+                        this.mockTerminal("Montevideo")));
     }
 
 

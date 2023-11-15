@@ -6,4 +6,8 @@ import java.time.Duration;
 
 public interface CircuitoMaritimoInterface {
     Duration tiempoEntreTramos(TerminalInterface terminalOrigen, TerminalInterface terminalDestino);
+
+    int precioEntreTramos(TerminalInterface origen, TerminalInterface destino);
+
+    int cantidadDeTramosEntre(TerminalInterface origen, TerminalInterface destino);
 }
