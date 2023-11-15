@@ -1,14 +1,14 @@
 package ar.edu.unq.po2.tpFinal;
 
-import static junit.framework.TestCase.assertEquals;
-
-import org.junit.Before;
-import org.junit.Test;
 
 import ar.edu.unq.po2.tpFinal.container.Container;
 import ar.edu.unq.po2.tpFinal.container.ContainerReefer;
 import ar.edu.unq.po2.tpFinal.container.ContainerSeco;
 import ar.edu.unq.po2.tpFinal.container.ContainerTanque;
+import org.junit.Before;
+import org.junit.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class ContainerTest {
 

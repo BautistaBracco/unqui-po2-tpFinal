@@ -4,6 +4,7 @@ import ar.edu.unq.po2.tpFinal.BuqueInterface;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
 import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 
 public class Viaje implements ViajesInterface {
@@ -24,6 +25,15 @@ public class Viaje implements ViajesInterface {
 
     @Override
     public LocalDateTime getFechaDeLlegada(TerminalInterface terminalDestino) {
+        System.out.println("this.fechaSalida = " + this.fechaSalida);
+        System.out.println("this.circuitoMaritimo.tiempoEntreTramos(" +
+                                   this.terminalOrigen.getNombre() +
+                                   ", " +
+                                   terminalDestino.getNombre() +
+                                   ") = " +
+                                   this.circuitoMaritimo
+                                           .tiempoEntreTramos(this.terminalOrigen, terminalDestino)
+                                           .toString());
         return this.fechaSalida.plus(this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino));
     }
 
