@@ -5,7 +5,8 @@ import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 public class ChoferTest {
     private ChoferInterface chofer;
