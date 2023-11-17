@@ -45,7 +45,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
     private List<TramoInterface> tramosEntre(TerminalInterface origen, TerminalInterface destino) {
 
         List<TramoInterface> tramos = new ArrayList<>();
-        if (!this.existePuerto(origen) || !this.existePuerto(destino)) {
+        if (!this.existeTerminal(origen) || !this.existeTerminal(destino)) {
             System.out.println("No existe puerto");
             return tramos;
         }
@@ -101,10 +101,10 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
                 .stream()
                 .filter(tramo -> tramo.getPuertoOrigen().getNombre().equals(origen.getNombre()))
                 .findFirst()
-                .orElse(null);
+                .get();
     }
 
-    private boolean existePuerto(TerminalInterface terminal) {
+    public boolean existeTerminal(TerminalInterface terminal) {
         return this.tramos
                 .stream()
                 .anyMatch(tramo -> Objects.equals(tramo.getPuertoOrigen().getNombre(), terminal.getNombre()) ||

@@ -21,14 +21,13 @@ public class MenorTiempoStrategy extends MejorCircuitoStrategy {
                 .getCircuitosMaritimos()
                 .stream()
                 .collect(Collectors.toMap(circuito -> circuito.tiempoEntreTramos(super.getTerminalOrigen(),
-                                                                                 super.getTerminalDestino()),
-                                          circuito -> circuito))
+                        super.getTerminalDestino()), circuito -> circuito))
                 .entrySet()
                 .stream()
                 .min((circuitoLlaveValor1, circuitoLlaveValor2) -> circuitoLlaveValor1
                         .getKey()
                         .compareTo(circuitoLlaveValor2.getKey()))
-                .orElse(null)
+                .get()
                 .getValue();
     }
 }

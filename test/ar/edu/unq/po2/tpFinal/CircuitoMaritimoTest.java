@@ -16,26 +16,29 @@ import static org.mockito.Mockito.when;
 public class CircuitoMaritimoTest {
 
     private CircuitoMaritimo circuitoMaritimo;
+    private TerminalInterface terminalBuenosAires;
+    private TerminalInterface terminalMontevideo;
+    private TerminalInterface terminalBahia;
+    private TerminalInterface terminalRioDeJaneiro;
 
 
     @Before
     public void setUp() {
         this.circuitoMaritimo = new CircuitoMaritimo();
-        TramoInterface tramo1 = this.mockTramo(this.mockTerminal("Buenos Aires"),
-                this.mockTerminal("Montevideo"),
+        this.terminalBuenosAires = this.mockTerminal("Buenos Aires");
+        this.terminalMontevideo = this.mockTerminal("Montevideo");
+        this.terminalBahia = this.mockTerminal("Bahia");
+        this.terminalRioDeJaneiro = this.mockTerminal("Rio de Janeiro");
+
+        TramoInterface tramo1 = this.mockTramo(this.terminalBuenosAires,
+                this.terminalMontevideo,
                 100,
                 Duration.ofDays(1));
 
-        TramoInterface tramo2 = this.mockTramo(this.mockTerminal("Montevideo"),
-                this.mockTerminal("Bahia"),
-                100,
-                Duration.ofDays(4));
-        TramoInterface tramo3 = this.mockTramo(this.mockTerminal("Bahia"),
-                this.mockTerminal("Rio de Janeiro"),
-                100,
-                Duration.ofDays(3));
-        TramoInterface tramo4 = this.mockTramo(this.mockTerminal("Rio de Janeiro"),
-                this.mockTerminal("Buenos Aires"),
+        TramoInterface tramo2 = this.mockTramo(this.terminalMontevideo, this.terminalBahia, 100, Duration.ofDays(4));
+        TramoInterface tramo3 = this.mockTramo(this.terminalBahia, this.terminalRioDeJaneiro, 100, Duration.ofDays(3));
+        TramoInterface tramo4 = this.mockTramo(this.terminalRioDeJaneiro,
+                this.terminalBuenosAires,
                 100,
                 Duration.ofDays(10));
 
@@ -66,8 +69,7 @@ public class CircuitoMaritimoTest {
     @Test
     public void testTramosEntreBsAsYRioDeJaneiro() {
         assertEquals(3,
-                this.circuitoMaritimo.cantidadDeTramosEntre(this.mockTerminal("Buenos Aires"),
-                        this.mockTerminal("Rio de Janeiro")));
+                this.circuitoMaritimo.cantidadDeTramosEntre(this.terminalBuenosAires, this.terminalRioDeJaneiro));
     }
 
     @Test
@@ -77,9 +79,7 @@ public class CircuitoMaritimoTest {
 
     @Test
     public void testPrecioEntreBsAsYMontevideo() {
-        assertEquals(100,
-                this.circuitoMaritimo.precioEntreTramos(this.mockTerminal("Buenos Aires"),
-                        this.mockTerminal("Montevideo")));
+        assertEquals(100, this.circuitoMaritimo.precioEntreTramos(this.terminalBuenosAires, this.terminalMontevideo));
     }
 
     @Test
@@ -90,8 +90,12 @@ public class CircuitoMaritimoTest {
     @Test
     public void testTiempoEntreBsAsYMontevideo() {
         assertEquals(Duration.ofDays(1),
-                this.circuitoMaritimo.tiempoEntreTramos(this.mockTerminal("Buenos Aires"),
-                        this.mockTerminal("Montevideo")));
+                this.circuitoMaritimo.tiempoEntreTramos(this.terminalBuenosAires, this.terminalMontevideo));
+    }
+
+    @Test
+    public void existeTerminal() {
+        assertEquals(true, this.circuitoMaritimo.existeTerminal(this.terminalBuenosAires));
     }
 
 

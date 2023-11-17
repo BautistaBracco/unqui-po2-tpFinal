@@ -25,24 +25,29 @@ public class ViajeTest {
         this.terminalDestino = this.mockTerminal();
         this.buque = this.mockBuque();
         this.viaje = new Viaje(LocalDateTime.of(2023, 10, 10, 10, 10),
-                               this.terminalOrigen,
-                               this.mockCircuitoMaritimo(),
-                               this.buque);
+                this.terminalOrigen,
+                this.mockCircuitoMaritimo(),
+                this.buque);
     }
 
     @Test
-    public void testGetFechaDeLlegada() {
+    public void testFechaDeLlegada() {
         assertEquals(LocalDateTime.of(2023, 10, 11, 10, 10), this.viaje.getFechaDeLlegada(this.terminalDestino));
     }
 
     @Test
-    public void getTerminalOrigen() {
+    public void terminalOrigenTest() {
         assertEquals(this.terminalOrigen, this.viaje.getTerminalOrigen());
     }
 
     @Test
-    public void getBuque() {
+    public void buqueTest() {
         assertEquals(this.buque, this.viaje.getBuque());
+    }
+
+    @Test
+    public void tiempoDeViajeTest() {
+        assertEquals(Duration.ofDays(1), this.viaje.getTiempoDeViaje(this.terminalDestino));
     }
 
     private TerminalInterface mockTerminal() {
@@ -56,7 +61,7 @@ public class ViajeTest {
     private CircuitoMaritimoInterface mockCircuitoMaritimo() {
         CircuitoMaritimoInterface circuitoMaritimo = mock(CircuitoMaritimoInterface.class);
         when(circuitoMaritimo.tiempoEntreTramos(this.terminalOrigen,
-                                                this.terminalDestino)).thenReturn(Duration.ofDays(1));
+                this.terminalDestino)).thenReturn(Duration.ofDays(1));
         return circuitoMaritimo;
     }
 }

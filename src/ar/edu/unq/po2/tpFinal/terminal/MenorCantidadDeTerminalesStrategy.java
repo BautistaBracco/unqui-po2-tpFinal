@@ -26,7 +26,7 @@ public class MenorCantidadDeTerminalesStrategy extends MejorCircuitoStrategy {
                 .min((circuitoLlaveValor1, circuitoLlaveValor2) -> circuitoLlaveValor1
                         .getKey()
                         .compareTo(circuitoLlaveValor2.getKey()))
-                .orElse(null)
+                .get()
                 .getValue();
     }
 

@@ -10,4 +10,5 @@ public interface CircuitoMaritimoInterface {
     int precioEntreTramos(TerminalInterface origen, TerminalInterface destino);
 
     int cantidadDeTramosEntre(TerminalInterface origen, TerminalInterface destino);
+    boolean existeTerminal(TerminalInterface terminal);
 }

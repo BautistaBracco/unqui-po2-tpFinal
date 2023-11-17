@@ -25,16 +25,11 @@ public class Viaje implements ViajesInterface {
 
     @Override
     public LocalDateTime getFechaDeLlegada(TerminalInterface terminalDestino) {
-        System.out.println("this.fechaSalida = " + this.fechaSalida);
-        System.out.println("this.circuitoMaritimo.tiempoEntreTramos(" +
-                                   this.terminalOrigen.getNombre() +
-                                   ", " +
-                                   terminalDestino.getNombre() +
-                                   ") = " +
-                                   this.circuitoMaritimo
-                                           .tiempoEntreTramos(this.terminalOrigen, terminalDestino)
-                                           .toString());
         return this.fechaSalida.plus(this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino));
+    }
+
+    public Duration getTiempoDeViaje(TerminalInterface terminalDestino) {
+        return this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino);
     }
 
     public BuqueInterface getBuque() {
