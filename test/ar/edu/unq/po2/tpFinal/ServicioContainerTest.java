@@ -19,17 +19,12 @@ import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioPesado;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-/*
- * mock(nameClass.class)
- * spy(new ArrayList<Receta>())
- * orden.verify(spyListaDeRecetas).add(dummyReceta)
- * when(recetaAptaCeliaco.costoTotal()).thenReturn(30);
- */
 
 public class ServicioContainerTest {
 	
 	private ServicioContainer servicioContainerAlmacenamiento;
-	private ServicioContainer servicioContainerLavado;
+	private ServicioContainer servicioContainerLavadoReefer;
+	private ServicioContainer servicioContainerLavadoSeco;
 	private ServicioContainer servicioContainerPesado;
 	private ServicioContainer servicioContainerElectricidad;
 	
@@ -41,17 +36,16 @@ public class ServicioContainerTest {
 		when(containerSeco.metrosCubicos()).thenReturn(60);
 		
 		Container containerReefer = mock(ContainerReefer.class);
-		when(containerReefer.getKWPorHoras()).thenReturn(40);
-		
-		
+		when(containerReefer.getKWPorHoras()).thenReturn(80);
+			
 		Container containerTanque = mock(ContainerTanque.class);
 		when(containerTanque.metrosCubicos()).thenReturn(60);
 		
 		servicioContainerElectricidad = new ServicioElectricidad(containerReefer, fechaHoraLlegada);
 		servicioContainerPesado = new ServicioPesado(containerTanque, fechaHoraLlegada);
-		servicioContainerLavado = new ServicioLavado(containerSeco, fechaHoraLlegada);
-		servicioContainerAlmacenamiento = new ServicioAlmacenamiento(containerSeco, fechaHoraLlegada, 50);
-		
+		servicioContainerLavadoSeco = new ServicioLavado(containerSeco, fechaHoraLlegada);
+		servicioContainerLavadoReefer = new ServicioLavado(containerReefer, fechaHoraLlegada);
+		servicioContainerAlmacenamiento = new ServicioAlmacenamiento(containerSeco, fechaHoraLlegada, 50);		
 	}
 	
 	@Test
@@ -61,8 +55,14 @@ public class ServicioContainerTest {
 	}
 	
 	@Test
-	public void testServicioContainer() {
-		assertEquals(0,0);
+	public void testServicioPesado() {
+		assertEquals(500, servicioContainerPesado.costoDelServicio(), 0.01);
+	}
+	
+	@Test 
+	public void testServicioLavado() {
+		assertEquals(10, servicioContainerLavadoReefer.costoDelServicio(), 0.01);
+		assertEquals(5, servicioContainerLavadoSeco.costoDelServicio(), 0.01);
 	}
 
 }
