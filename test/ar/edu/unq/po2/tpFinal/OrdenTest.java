@@ -1,6 +1,8 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
 
@@ -44,13 +46,13 @@ public class OrdenTest {
 		Cliente consignee = mock(Cliente.class);
 		
 		ServicioContainer servicioElectricidad = mock(ServicioElectricidad.class);
-		when(servicioElectricidad.costoDelServicio()).thenReturn(100);
+		when(servicioElectricidad.costoDelServicio()).thenReturn(100.00);
 		ServicioContainer servicioAlmacenamiento = mock(ServicioAlmacenamiento.class);
-		when(servicioAlmacenamiento.costoDelServicio()).thenReturn(50);
+		when(servicioAlmacenamiento.costoDelServicio()).thenReturn(50.00);
 		ServicioContainer servicioLavado = mock(ServicioLavado.class);
-		when(servicioLavado.costoDelServicio()).thenReturn(25);
+		when(servicioLavado.costoDelServicio()).thenReturn(25.00);
 		ServicioContainer servicioPesado = mock(ServicioPesado.class);
-		when(servicioPesado.costoDelServicio()).thenReturn(5);
+		when(servicioPesado.costoDelServicio()).thenReturn(5.00);
 		
 		fechaDeSalida = LocalDateTime.of(2010, 01, 30, 8, 0);
 		fechaDeLlegada = LocalDateTime.of(2010, 05, 10, 16, 0);
