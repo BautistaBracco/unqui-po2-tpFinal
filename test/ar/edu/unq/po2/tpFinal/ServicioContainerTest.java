@@ -30,13 +30,14 @@ public class ServicioContainerTest {
 	
 	@Before
 	public void setUp() {
-		LocalDateTime fechaHoraLlegada = mock(LocalDateTime.class);
+		LocalDateTime fechaHoraLlegada = LocalDateTime.of(2010, 11, 15, 16, 0);
 		
 		Container containerSeco = mock(ContainerSeco.class);
 		when(containerSeco.metrosCubicos()).thenReturn(60);
 		
 		Container containerReefer = mock(ContainerReefer.class);
 		when(containerReefer.getKWPorHoras()).thenReturn(80);
+		when(containerReefer.metrosCubicos()).thenReturn(100);
 			
 		Container containerTanque = mock(ContainerTanque.class);
 		when(containerTanque.metrosCubicos()).thenReturn(60);
@@ -51,7 +52,7 @@ public class ServicioContainerTest {
 	@Test
 	public void testContainer() {
 		assertEquals(60, servicioContainerAlmacenamiento.getContainer().metrosCubicos());
-		assertEquals(40, servicioContainerElectricidad.getContainer().getKWPorHoras());
+		assertEquals(80, servicioContainerElectricidad.getContainer().getKWPorHoras());
 	}
 	
 	@Test

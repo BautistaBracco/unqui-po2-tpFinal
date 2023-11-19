@@ -18,6 +18,7 @@ import ar.edu.unq.po2.tpFinal.orden.Buque;
 import ar.edu.unq.po2.tpFinal.orden.Cliente;
 import ar.edu.unq.po2.tpFinal.orden.Orden;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
+import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioAlmacenamiento;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioContainer;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioElectricidad;
@@ -61,11 +62,13 @@ public class OrdenTest {
 		ordenDeExportacion.agregarServicio(servicioLavado);
 		ordenDeExportacion.agregarServicio(servicioPesado);
 		ordenDeExportacion.agregarServicio(servicioElectricidad);
+		
 		ordenDeExportacion.agregarServicio(servicioAlmacenamiento);
 		
-		ordenDeImportacion = new OrdenDeExportacion(container, shipper, consignee, camion, chofer, buque, fechaDeLlegada, fechaDeSalida);
+		ordenDeImportacion = new OrdenDeImportacion(container, shipper, consignee, camion, chofer, buque, fechaDeLlegada, fechaDeSalida);
 		ordenDeImportacion.agregarServicio(servicioAlmacenamiento);
 		ordenDeImportacion.agregarServicio(servicioElectricidad);
+		
 		ordenDeImportacion.agregarServicio(servicioPesado);
 		ordenDeImportacion.agregarServicio(servicioLavado);
 		
@@ -81,20 +84,20 @@ public class OrdenTest {
 	
 	@Test
 	public void testOrdenDeImportacionFechas() {
-		assertEquals(2010, ordenDeImportacion.getFechaDeSalida().getYear());
-		assertEquals(05, ordenDeImportacion.getFechaDeSalida().getMonthValue());
-		assertEquals(10, ordenDeImportacion.getFechaDeSalida().getDayOfMonth());
-		assertEquals(16, ordenDeImportacion.getFechaDeSalida().getHour());
+		assertEquals(2010, ordenDeImportacion.getFechaDeLlegada().getYear());
+		assertEquals(05, ordenDeImportacion.getFechaDeLlegada().getMonthValue());
+		assertEquals(10, ordenDeImportacion.getFechaDeLlegada().getDayOfMonth());
+		assertEquals(16, ordenDeImportacion.getFechaDeLlegada().getHour());
 	}
 	
 	@Test
 	public void testOrdenDeImportacionCostoTotal() {
-		assertEquals(130, ordenDeImportacion.costoTotalDeServiciosDeContainer(), 0.01);
+		assertEquals(150, ordenDeImportacion.costoTotalDeServiciosDeContainer(), 0.01);
 	}
 	
 	@Test
 	public void testOrdenDeExportacionCostoTotal() {
-		assertEquals(150, ordenDeExportacion.costoTotalDeServiciosDeContainer(), 0.01);
+		assertEquals(130, ordenDeExportacion.costoTotalDeServiciosDeContainer(), 0.01);
 	}
 
 }
