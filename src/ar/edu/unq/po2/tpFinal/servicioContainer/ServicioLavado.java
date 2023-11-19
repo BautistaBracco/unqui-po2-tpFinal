@@ -12,8 +12,8 @@ import ar.edu.unq.po2.tpFinal.container.Container;
  */
 public class ServicioLavado extends ServicioContainer {
 	
-	public ServicioLavado(Container container, LocalDateTime fechaHoraLlegada) {
-		super(container, fechaHoraLlegada);
+	public ServicioLavado(Container container) {
+		super(container);
 	}
 	
 	@Override

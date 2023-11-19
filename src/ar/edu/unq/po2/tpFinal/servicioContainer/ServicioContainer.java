@@ -19,29 +19,27 @@ import ar.edu.unq.po2.tpFinal.container.Container;
 public abstract class ServicioContainer {
 
 	private Container container;
-	private LocalDateTime fechaHoraLlegada;
 	
-	public ServicioContainer(Container container, LocalDateTime fechaHoraLlegada) {
+	public ServicioContainer(Container container) {
 		this.container = container;
-		this.fechaHoraLlegada = fechaHoraLlegada;
 	}
 	
 	public Container getContainer() {
 		return this.container;
 	}
 	
-	public int cantidadDeDiasExcedentes() {
-		LocalDate fechaActual = LocalDate.now();
-		LocalDate fechaLlegada = fechaHoraLlegada.toLocalDate();
+	public int cantidadDeDiasExcedentes(LocalDateTime fecha1, LocalDateTime fecha2) {
+		LocalDate fechaLlegada = fecha1.toLocalDate();
+		LocalDate fechaRetiro = fecha2.toLocalDate();
 		
-		Period periodo = Period.between(fechaLlegada, fechaActual);
+		Period periodo = Period.between(fechaLlegada, fechaRetiro);
 		return periodo.getDays();
 	}
 	
-	public int cantidadDeHorasExcedentes() {
-		int horas = fechaHoraLlegada.toLocalTime().getHour();
+	public int cantidadDeHorasExcedentes(LocalDateTime fecha1, LocalDateTime fecha2) {
+		int horas = fecha1.toLocalTime().getHour();
 		
-		int horasExtras = horas + (cantidadDeDiasExcedentes() * 24);
+		int horasExtras = horas + (cantidadDeDiasExcedentes(fecha1, fecha2) * 24);
 		return horasExtras;
 	}
 	

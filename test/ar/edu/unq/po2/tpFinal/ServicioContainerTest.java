@@ -30,7 +30,8 @@ public class ServicioContainerTest {
 	
 	@Before
 	public void setUp() {
-		LocalDateTime fechaHoraLlegada = LocalDateTime.of(2010, 11, 15, 16, 0);
+		LocalDateTime fechaHoraInicial = LocalDateTime.of(2010, 11, 15, 16, 0);
+		LocalDateTime fechaHoraFinal = LocalDateTime.of(2010, 12, 15, 16, 0);
 		
 		Container containerSeco = mock(ContainerSeco.class);
 		when(containerSeco.metrosCubicos()).thenReturn(60);
@@ -42,11 +43,11 @@ public class ServicioContainerTest {
 		Container containerTanque = mock(ContainerTanque.class);
 		when(containerTanque.metrosCubicos()).thenReturn(60);
 		
-		servicioContainerElectricidad = new ServicioElectricidad(containerReefer, fechaHoraLlegada);
-		servicioContainerPesado = new ServicioPesado(containerTanque, fechaHoraLlegada);
-		servicioContainerLavadoSeco = new ServicioLavado(containerSeco, fechaHoraLlegada);
-		servicioContainerLavadoReefer = new ServicioLavado(containerReefer, fechaHoraLlegada);
-		servicioContainerAlmacenamiento = new ServicioAlmacenamiento(containerSeco, fechaHoraLlegada, 50);		
+		servicioContainerElectricidad = new ServicioElectricidad(containerReefer, fechaHoraInicial, fechaHoraFinal);
+		servicioContainerPesado = new ServicioPesado(containerTanque);
+		servicioContainerLavadoSeco = new ServicioLavado(containerSeco);
+		servicioContainerLavadoReefer = new ServicioLavado(containerReefer);
+		servicioContainerAlmacenamiento = new ServicioAlmacenamiento(containerSeco, fechaHoraInicial, fechaHoraFinal, 50);		
 	}
 	
 	@Test
