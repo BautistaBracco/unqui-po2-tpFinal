@@ -24,9 +24,15 @@ public class ViajeTest {
         this.terminalOrigen = this.mockTerminal();
         this.terminalDestino = this.mockTerminal();
         this.buque = this.mockBuque();
+
+        CircuitoMaritimoInterface circuitoMaritimo = mock(CircuitoMaritimoInterface.class);
+        when(circuitoMaritimo.tiempoEntreTramos(this.terminalOrigen,
+                this.terminalDestino)).thenReturn(Duration.ofDays(1));
+        when(circuitoMaritimo.existeTerminal(this.terminalDestino)).thenReturn(true);
+
         this.viaje = new Viaje(LocalDateTime.of(2023, 10, 10, 10, 10),
                 this.terminalOrigen,
-                this.mockCircuitoMaritimo(),
+                circuitoMaritimo,
                 this.buque);
     }
 
@@ -50,6 +56,11 @@ public class ViajeTest {
         assertEquals(Duration.ofDays(1), this.viaje.getTiempoDeViaje(this.terminalDestino));
     }
 
+    @Test
+    public void existeDestinoTest() {
+        assertEquals(true, this.viaje.existeDestino(this.terminalDestino));
+    }
+
     private TerminalInterface mockTerminal() {
         return mock(TerminalInterface.class);
     }
@@ -58,10 +69,4 @@ public class ViajeTest {
         return mock(BuqueInterface.class);
     }
 
-    private CircuitoMaritimoInterface mockCircuitoMaritimo() {
-        CircuitoMaritimoInterface circuitoMaritimo = mock(CircuitoMaritimoInterface.class);
-        when(circuitoMaritimo.tiempoEntreTramos(this.terminalOrigen,
-                this.terminalDestino)).thenReturn(Duration.ofDays(1));
-        return circuitoMaritimo;
-    }
 }

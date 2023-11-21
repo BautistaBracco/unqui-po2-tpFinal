@@ -28,6 +28,11 @@ public class Viaje implements ViajesInterface {
         return this.fechaSalida.plus(this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino));
     }
 
+    @Override
+    public LocalDateTime getFechaDeSalida() {
+        return this.fechaSalida;
+    }
+
     public Duration getTiempoDeViaje(TerminalInterface terminalDestino) {
         return this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino);
     }
@@ -38,5 +43,10 @@ public class Viaje implements ViajesInterface {
 
     public TerminalInterface getTerminalOrigen() {
         return terminalOrigen;
+    }
+
+    @Override
+    public boolean existeDestino(TerminalInterface terminalDestino) {
+        return this.circuitoMaritimo.existeTerminal(terminalDestino);
     }
 }
