@@ -25,14 +25,14 @@ public class ViajeTest {
         this.terminalDestino = this.mockTerminal();
         this.buque = this.mockBuque();
 
-        CircuitoMaritimoInterface circuitoMaritimo = mock(CircuitoMaritimoInterface.class);
-        when(circuitoMaritimo.tiempoEntreTramos(this.terminalOrigen,
+        CircuitoMaritimoInterface circuitoMaritimoMock = mock(CircuitoMaritimoInterface.class);
+        when(circuitoMaritimoMock.tiempoEntreTramos(this.terminalOrigen,
                 this.terminalDestino)).thenReturn(Duration.ofDays(1));
-        when(circuitoMaritimo.existeTerminal(this.terminalDestino)).thenReturn(true);
+        when(circuitoMaritimoMock.existeTerminal(this.terminalDestino)).thenReturn(true);
 
         this.viaje = new Viaje(LocalDateTime.of(2023, 10, 10, 10, 10),
                 this.terminalOrigen,
-                circuitoMaritimo,
+                circuitoMaritimoMock,
                 this.buque);
     }
 
