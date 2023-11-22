@@ -85,7 +85,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
                 .stream()
                 .reduce(Duration.ZERO,
                         (tiempo, tramo) -> tiempo.plus(tramo.getTiempo()),
-                        (tiempo1, tiempo2) -> tiempo1.plus(tiempo2)); /* no entiendo esta parte para qué la necesito */
+                        (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
     }
 
     public Duration tiempoTotalDelCircuito() {

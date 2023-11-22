@@ -34,27 +34,28 @@ public class MejorCircuitoTest {
         circuitosMaritimos.add(this.mockCircuitoMaritimo(Duration.ofDays(2), 4, 2000));
         circuitosMaritimos.add(this.mockCircuitoMaritimo(Duration.ofDays(7), 3, 300));
 
-        this.menorCantidadDeTerminalesStrategy = new MenorCantidadDeTerminalesStrategy(circuitosMaritimos,
-                terminalOrigen,
-                terminalDestino);
-        this.menorPrecioStrategy = new MenorPrecioStrategy(circuitosMaritimos, terminalOrigen, terminalDestino);
-        this.menorTiempoStrategy = new MenorTiempoStrategy(circuitosMaritimos, terminalOrigen, terminalDestino);
+        this.menorCantidadDeTerminalesStrategy = new MenorCantidadDeTerminalesStrategy(terminalOrigen);
+        this.menorPrecioStrategy = new MenorPrecioStrategy(terminalOrigen);
+        this.menorTiempoStrategy = new MenorTiempoStrategy(terminalOrigen);
 
     }
 
     @Test
     public void testMejorCircuitoPorMenorCantidadDeTerminales() {
-        assertEquals(this.circuitosMaritimos.get(0), this.menorCantidadDeTerminalesStrategy.getMejorCircuito());
+        assertEquals(this.circuitosMaritimos.get(0),
+                this.menorCantidadDeTerminalesStrategy.getMejorCircuitoPara(terminalDestino, circuitosMaritimos));
     }
 
     @Test
     public void testMejorCircuitoPorMenorPrecio() {
-        assertEquals(this.circuitosMaritimos.get(2), this.menorPrecioStrategy.getMejorCircuito());
+        assertEquals(this.circuitosMaritimos.get(2),
+                this.menorPrecioStrategy.getMejorCircuitoPara(terminalDestino, circuitosMaritimos));
     }
 
     @Test
     public void testMejorCircuitoPorMenorTiempo() {
-        assertEquals(this.circuitosMaritimos.get(1), this.menorTiempoStrategy.getMejorCircuito());
+        assertEquals(this.circuitosMaritimos.get(1),
+                this.menorTiempoStrategy.getMejorCircuitoPara(terminalDestino, circuitosMaritimos));
     }
 
 

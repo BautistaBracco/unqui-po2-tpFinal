@@ -9,7 +9,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Naviera {
+public class Naviera implements NavieraInterface {
     private List<BuqueInterface> buques;
     private List<CircuitoMaritimoInterface> circuitos;
     private List<ViajesInterface> viajes;

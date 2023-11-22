@@ -10,11 +10,14 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Terminal implements TerminalInterface {
     private String nombre;
+    private MejorCircuitoStrategy mejorCircuitoStrategy;
     private List<CamionInterface> camionesRegistrados;
     private List<ChoferInterface> choferesRegistrados;
     private List<NavieraInterface> lineasNavierasRegistradas;
@@ -26,6 +29,7 @@ public class Terminal implements TerminalInterface {
 
     public Terminal(String nombre) {
         this.nombre = nombre;
+        this.mejorCircuitoStrategy = new MenorTiempoStrategy(this);
         this.camionesRegistrados = new ArrayList<>();
         this.choferesRegistrados = new ArrayList<>();
         this.lineasNavierasRegistradas = new ArrayList<>();
@@ -79,6 +83,11 @@ public class Terminal implements TerminalInterface {
     @Override
     public void registrarCircuitoMaritimo(CircuitoMaritimoInterface circuitoMaritimo) {
         this.circuitosMaritimos.add(circuitoMaritimo);
+
+    }
+
+    public void setMejorCircuitoStrategy(MejorCircuitoStrategy mejorCircuitoStrategy) {
+        this.mejorCircuitoStrategy = mejorCircuitoStrategy;
     }
     
     @Override
@@ -134,8 +143,25 @@ public class Terminal implements TerminalInterface {
     			System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
     	}
     }
-    
-    public CircuitoMaritimoInterface getMejorCircuito(MejorCircuitoStrategy mejorCircuitoStrategy) {
-        return mejorCircuitoStrategy.getMejorCircuito();
+  
+    public CircuitoMaritimoInterface getMejorCircuito(TerminalInterface destino) {
+        return mejorCircuitoStrategy.getMejorCircuitoPara(destino, this.circuitosMaritimos);
+    }
+
+    public Duration cuantoTardaNavieraEnIrA(TerminalInterface destino, NavieraInterface naviera) {
+        return naviera.getTiempoDeViaje(this, destino);
+    }
+
+    public LocalDateTime proximoBuqueA(TerminalInterface destino, LocalDateTime fecha) {
+        return this.lineasNavierasRegistradas
+                .stream()
+                .map(lineaNaviera -> lineaNaviera.getViajes())
+                .flatMap(viajes -> viajes.stream()) // aplana el stream de listas de listas de viajes y lo convierte en un stream de listas de viajes
+                .filter(viaje -> viaje.getTerminalOrigen().getNombre().equals(this.nombre) &&
+                                 viaje.existeDestino(destino) &&
+                                 viaje.getFechaDeSalida().isAfter(fecha))
+                .map(viaje -> viaje.getFechaDeSalida())
+                .min((fecha1, fecha2) -> fecha1.compareTo(fecha2))
+                .get();
     }
 }
