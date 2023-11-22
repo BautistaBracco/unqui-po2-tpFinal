@@ -63,8 +63,16 @@ public abstract class Orden {
 		return this.serviciosDeContainer;
 	}
 	
+	public int cantidadDeServicios() {
+		return this.serviciosDeContainer.size();
+	}
+	
 	public void agregarServicio(ServicioContainer servicio) {
 		this.serviciosDeContainer.add(servicio);
+	}
+	
+	public double costoDeServicios() {
+		return serviciosDeContainer.stream().mapToDouble(servicio -> servicio.costoDelServicio()).sum();
 	}
 	
 }

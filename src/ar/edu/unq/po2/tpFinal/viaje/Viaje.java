@@ -22,10 +22,6 @@ public class Viaje implements ViajesInterface {
         this.circuitoMaritimo = circuitoMaritimo;
         this.buque = buque;
     }
-
-    public LocalDateTime getFechaDeSalida() {
-    	return this.fechaSalida;
-    }
     
     @Override
     public LocalDateTime getFechaDeLlegada(TerminalInterface terminalDestino) {
@@ -52,5 +48,10 @@ public class Viaje implements ViajesInterface {
     @Override
     public boolean existeDestino(TerminalInterface terminalDestino) {
         return this.circuitoMaritimo.existeTerminal(terminalDestino);
+    }
+    
+    @Override
+    public double costoDeViaje(TerminalInterface terminalDestino) {
+    	return circuitoMaritimo.precioEntreTramos(terminalOrigen, terminalDestino);
     }
 }

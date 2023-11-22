@@ -102,12 +102,12 @@ public class Terminal implements TerminalInterface {
 
     @Override
     public double costoDeServiciosDeOrdenExportacion(OrdenDeExportacion ordenDeExportacion) {
-    	return ordenDeExportacion.getServiciosDeContainer().stream().mapToDouble(servicio -> servicio.costoDelServicio()).sum();
+    	return ordenDeExportacion.costoDeServicios();
     }
     
     @Override
     public double costoDeServiciosDeOrdenImportacion(OrdenDeImportacion ordenDeImportacion) {
-    	return ordenDeImportacion.getServiciosDeContainer().stream().mapToDouble(servicio -> servicio.costoDelServicio()).sum();
+    	return ordenDeImportacion.costoDeServicios() + ordenDeImportacion.getViaje().costoDeViaje(this);
     }
     
     @Override
