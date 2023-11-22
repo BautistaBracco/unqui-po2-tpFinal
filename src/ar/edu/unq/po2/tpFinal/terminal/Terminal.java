@@ -1,9 +1,12 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
-import ar.edu.unq.po2.tpFinal.ConsigneeInterface;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
+import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.naviera.NavieraInterface;
-import ar.edu.unq.po2.tpFinal.ShipperInterface;
+import ar.edu.unq.po2.tpFinal.orden.Orden;
+import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
+import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
+import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 
@@ -18,8 +21,10 @@ public class Terminal implements TerminalInterface {
     private List<CamionInterface> camionesRegistrados;
     private List<ChoferInterface> choferesRegistrados;
     private List<NavieraInterface> lineasNavierasRegistradas;
-    private List<ShipperInterface> shippersRegistrados;
-    private List<ConsigneeInterface> consigneesRegistrados;
+    private List<Cliente> shippersRegistrados;
+    private List<Cliente> consigneesRegistrados;
+    private List<OrdenDeExportacion> ordenesDeExportacion;
+    private List<OrdenDeImportacion> ordenesDeImportacion;
     private List<CircuitoMaritimoInterface> circuitosMaritimos;
 
     public Terminal(String nombre) {
@@ -30,6 +35,8 @@ public class Terminal implements TerminalInterface {
         this.lineasNavierasRegistradas = new ArrayList<>();
         this.shippersRegistrados = new ArrayList<>();
         this.consigneesRegistrados = new ArrayList<>();
+        this.ordenesDeExportacion = new ArrayList<>();
+        this.ordenesDeImportacion = new ArrayList<>();
         this.circuitosMaritimos = new ArrayList<>();
     }
 
@@ -44,12 +51,12 @@ public class Terminal implements TerminalInterface {
     }
 
     @Override
-    public void registrarShipper(ShipperInterface shipper) {
+    public void registrarShipper(Cliente shipper) {
         this.shippersRegistrados.add(shipper);
     }
 
     @Override
-    public void registrarConsignee(ConsigneeInterface consignee) {
+    public void registrarConsignee(Cliente consignee) {
         this.consigneesRegistrados.add(consignee);
     }
 
@@ -82,7 +89,61 @@ public class Terminal implements TerminalInterface {
     public void setMejorCircuitoStrategy(MejorCircuitoStrategy mejorCircuitoStrategy) {
         this.mejorCircuitoStrategy = mejorCircuitoStrategy;
     }
+    
+    @Override
+    public void registrarOrdenDeExportacion(OrdenDeExportacion ordenDeExportacion) {
+    	ordenesDeExportacion.add(ordenDeExportacion);
+    }
+    
+    @Override
+    public void registrarOrdenDeImportacion(OrdenDeImportacion ordenDeImportacion) {
+    	ordenesDeImportacion.add(ordenDeImportacion);
+    }
 
+    @Override
+    public double costoDeServiciosDeOrdenExportacion(OrdenDeExportacion ordenDeExportacion) {
+    	return ordenDeExportacion.getServiciosDeContainer().stream().mapToDouble(servicio -> servicio.costoDelServicio()).sum();
+    }
+    
+    @Override
+    public double costoDeServiciosDeOrdenImportacion(OrdenDeImportacion ordenDeImportacion) {
+    	return ordenDeImportacion.getServiciosDeContainer().stream().mapToDouble(servicio -> servicio.costoDelServicio()).sum();
+    }
+    
+    @Override
+    public List<OrdenDeImportacion> ordenesDeImportacionDelViaje(Viaje viaje) {
+    	return ordenesDeImportacion.stream()
+    							   .filter(orden -> orden.getViaje().equals(viaje))
+    							   .toList();
+    }
+    
+    @Override
+    public List<OrdenDeExportacion> ordenesDeExportacionDelViaje(Viaje viaje) {
+    	return ordenesDeExportacion.stream()
+    							   .filter(orden -> orden.getViaje().equals(viaje))
+    							   .toList();
+    }
+    
+    @Override
+    public void informarConsigneesDelViaje(Viaje viaje) {
+    	List<String> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje).stream()
+    																		 .map(orden -> orden.getCliente().getNombre())
+    																		 .toList();
+    	for (String nombreCliente : consigneesDelViaje) {
+    		System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+    	}
+    }
+    
+    @Override
+    public void informarShippersDelViaje(Viaje viaje) {
+    	List<String> shippersDelViaje = ordenesDeImportacionDelViaje(viaje).stream()
+				 .map(orden -> orden.getCliente().getNombre())
+				 .toList();
+    	for (String nombreCliente : shippersDelViaje) {
+    			System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+    	}
+    }
+  
     public CircuitoMaritimoInterface getMejorCircuito(TerminalInterface destino) {
         return mejorCircuitoStrategy.getMejorCircuitoPara(destino, this.circuitosMaritimos);
     }

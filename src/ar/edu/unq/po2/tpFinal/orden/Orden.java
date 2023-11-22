@@ -3,6 +3,7 @@ package ar.edu.unq.po2.tpFinal.orden;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.container.Container;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
@@ -21,12 +22,11 @@ public abstract class Orden {
 	 * 	- ServicioLavado y ServicioPesado (solo se le cobra al shipper)
 	 * 	- ServicioElectricidad (ambos)
 	 */
-	
+
 	private Container container;
 	private Camion camion;
 	private Chofer chofer;
 	private Viaje viaje;
-	
 	private Cliente cliente;
 	private List<ServicioContainer> serviciosDeContainer;
 
@@ -58,7 +58,7 @@ public abstract class Orden {
 	public Cliente getCliente() {
 		return this.cliente;
 	}
-	
+
 	public List<ServicioContainer> getServiciosDeContainer() {
 		return this.serviciosDeContainer;
 	}

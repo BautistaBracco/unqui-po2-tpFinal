@@ -23,6 +23,10 @@ public class Viaje implements ViajesInterface {
         this.buque = buque;
     }
 
+    public LocalDateTime getFechaDeSalida() {
+    	return this.fechaSalida;
+    }
+    
     @Override
     public LocalDateTime getFechaDeLlegada(TerminalInterface terminalDestino) {
         return this.fechaSalida.plus(this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino));
