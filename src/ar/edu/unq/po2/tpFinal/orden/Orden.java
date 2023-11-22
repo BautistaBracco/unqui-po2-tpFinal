@@ -12,17 +12,6 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 
 public abstract class Orden {
 
-	/*
-	 * Por último, resta mencionar a los extremos de la cadena logística: el shipper (exportador) 
-	 * y el consignee (consignatario o importador). El primero es la persona que envía la carga 
-	 * mientras que el segundo es quien la recibe, y es reconocido como el dueño de la misma
-	 * 
-	 * Hay servicios que son solo de shipper y otros solo de consignee:
-	 * 	- ServicioAlmacenamiento (solo se le cobra al consignee)
-	 * 	- ServicioLavado y ServicioPesado (solo se le cobra al shipper)
-	 * 	- ServicioElectricidad (ambos)
-	 */
-
 	private Container container;
 	private Camion camion;
 	private Chofer chofer;

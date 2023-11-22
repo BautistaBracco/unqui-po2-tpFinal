@@ -2,11 +2,8 @@ package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,6 +63,11 @@ public class OrdenTest {
 		assertEquals(01, ordenDeExportacion.getFechaDeSalida().getMonthValue());
 		assertEquals(30, ordenDeExportacion.getFechaDeSalida().getDayOfMonth());
 		assertEquals(8, ordenDeExportacion.getFechaDeSalida().getHour());
+		
+		assertEquals(2010, ordenDeExportacion.getFechaDeLlegada().getYear());
+		assertEquals(05, ordenDeExportacion.getFechaDeLlegada().getMonthValue());
+		assertEquals(10, ordenDeExportacion.getFechaDeLlegada().getDayOfMonth());
+		assertEquals(16, ordenDeExportacion.getFechaDeLlegada().getHour());
 	}
 	
 	@Test

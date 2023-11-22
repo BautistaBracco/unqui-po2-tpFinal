@@ -1,15 +1,5 @@
 package ar.edu.unq.po2.tpFinal.container;
 
-/*
-	El container es la forma más utilizada de transporte; la mercancía se transporta
-	dentro de ellos, usualmente cerrados mediante trabas y candados, y también precintados.
-	De cada container se conoce sus dimensiones (ancho, largo y altura) y su peso total.
-	Entendemos como “carga” a un container. Es decir, no interesa saber qué contiene
-	dentro; el container es la carga.
- */
-
-// ☑ De cada container se conoce sus dimensiones (ancho, largo y altura) y su peso total.
-
 public abstract class Container {
 
 	private int ancho;
@@ -32,6 +22,8 @@ public abstract class Container {
 		return this.ancho * this.largo * this.alto;
 	}
 	
-	public abstract int getKWPorHoras();
+	public int getKWPorHoras() {
+		return 0;
+	}
 
 }

@@ -6,16 +6,6 @@ import java.time.Period;
 
 import ar.edu.unq.po2.tpFinal.container.Container;
 
-/*
-   Un container pueden recibir varios servicios, en general contratados explícitamente a
-   la terminal y registrados en la orden de exportación o importación, mientras se encuentra
-   dentro de la misma; todos ellos irán a costo del shipper o consignee (según la carga esté allí
-   para una exportación o importación, respectivamente).
-   
-   ?? Modificar UML, la orden tiene muchos servicios NO el container.
-    
- */
-
 public abstract class ServicioContainer {
 
 	private Container container;
