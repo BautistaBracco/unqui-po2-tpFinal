@@ -89,61 +89,60 @@ public class Terminal implements TerminalInterface {
     public void setMejorCircuitoStrategy(MejorCircuitoStrategy mejorCircuitoStrategy) {
         this.mejorCircuitoStrategy = mejorCircuitoStrategy;
     }
-    
+
     @Override
     public void registrarOrdenDeExportacion(OrdenDeExportacion ordenDeExportacion) {
-    	ordenesDeExportacion.add(ordenDeExportacion);
+        ordenesDeExportacion.add(ordenDeExportacion);
     }
-    
+
     @Override
     public void registrarOrdenDeImportacion(OrdenDeImportacion ordenDeImportacion) {
-    	ordenesDeImportacion.add(ordenDeImportacion);
+        ordenesDeImportacion.add(ordenDeImportacion);
     }
 
     @Override
     public double costoDeServiciosDeOrdenExportacion(OrdenDeExportacion ordenDeExportacion) {
-    	return ordenDeExportacion.costoDeServicios();
+        return ordenDeExportacion.costoDeServicios();
+
     }
-    
+
     @Override
     public double costoDeServiciosDeOrdenImportacion(OrdenDeImportacion ordenDeImportacion) {
-    	return ordenDeImportacion.costoDeServicios() + ordenDeImportacion.getViaje().costoDeViaje(this);
+        return ordenDeImportacion.costoDeServicios() + ordenDeImportacion.getViaje().costoDeViaje(this);
     }
-    
+
     @Override
     public List<OrdenDeImportacion> ordenesDeImportacionDelViaje(Viaje viaje) {
-    	return ordenesDeImportacion.stream()
-    							   .filter(orden -> orden.getViaje().equals(viaje))
-    							   .toList();
+        return ordenesDeImportacion.stream().filter(orden -> orden.getViaje().equals(viaje)).toList();
     }
-    
+
     @Override
     public List<OrdenDeExportacion> ordenesDeExportacionDelViaje(Viaje viaje) {
-    	return ordenesDeExportacion.stream()
-    							   .filter(orden -> orden.getViaje().equals(viaje))
-    							   .toList();
+        return ordenesDeExportacion.stream().filter(orden -> orden.getViaje().equals(viaje)).toList();
     }
-    
+
     @Override
     public void informarConsigneesDelViaje(Viaje viaje) {
-    	List<String> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje).stream()
-    																		 .map(orden -> orden.getCliente().getNombre())
-    																		 .toList();
-    	for (String nombreCliente : consigneesDelViaje) {
-    		System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
-    	}
+        List<String> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje)
+                .stream()
+                .map(orden -> orden.getCliente().getNombre())
+                .toList();
+        for (String nombreCliente : consigneesDelViaje) {
+            System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+        }
     }
-    
+
     @Override
     public void informarShippersDelViaje(Viaje viaje) {
-    	List<String> shippersDelViaje = ordenesDeImportacionDelViaje(viaje).stream()
-				 .map(orden -> orden.getCliente().getNombre())
-				 .toList();
-    	for (String nombreCliente : shippersDelViaje) {
-    			System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
-    	}
+        List<String> shippersDelViaje = ordenesDeImportacionDelViaje(viaje)
+                .stream()
+                .map(orden -> orden.getCliente().getNombre())
+                .toList();
+        for (String nombreCliente : shippersDelViaje) {
+            System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+        }
     }
-  
+
     public CircuitoMaritimoInterface getMejorCircuito(TerminalInterface destino) {
         return mejorCircuitoStrategy.getMejorCircuitoPara(destino, this.circuitosMaritimos);
     }

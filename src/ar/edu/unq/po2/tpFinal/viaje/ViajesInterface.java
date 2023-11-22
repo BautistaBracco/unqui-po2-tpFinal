@@ -10,5 +10,5 @@ public interface ViajesInterface {
     LocalDateTime getFechaDeSalida();
     TerminalInterface getTerminalOrigen();
     boolean existeDestino(TerminalInterface terminalDestino);
-    double costoDeViaje(TerminalInterface terminalDestino);
+    int costoDeViaje(TerminalInterface terminalDestino);
 }
