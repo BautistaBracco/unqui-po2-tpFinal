@@ -15,7 +15,6 @@ public class ServicioElectricidad extends ServicioContainer{
 		this.fechaFinal = fechaFinal;
 	}
 	
-//	Resolver problema de identificar los contenedores de alguna forma.
 	@Override
 	public double costoDelServicio() {
 		return getContainer().getKWPorHoras() * cantidadDeHorasExcedentes(fechaInicial, fechaFinal);

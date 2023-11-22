@@ -140,7 +140,7 @@ public class Terminal implements TerminalInterface {
 				 .map(orden -> orden.getCliente().getNombre())
 				 .toList();
     	for (String nombreCliente : shippersDelViaje) {
-    			System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+    			System.out.println("Señor " + nombreCliente + " su carga ha zarpado de la terminal");
     	}
     }
   
