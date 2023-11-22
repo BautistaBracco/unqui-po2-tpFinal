@@ -23,6 +23,7 @@ import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioElectricidad;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioLavado;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioPesado;
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
+import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 
 public class TerminalTest {
@@ -31,40 +32,37 @@ public class TerminalTest {
 	
 	@Before
 	public void setUp() {
-		ServicioContainer servicioElectricidad = mock(ServicioElectricidad.class);
-		when(servicioElectricidad.costoDelServicio()).thenReturn(300.00);
-
-		ServicioContainer servicioAlmacenamiento = mock(ServicioAlmacenamiento.class);
-		when(servicioAlmacenamiento.costoDelServicio()).thenReturn(150.00);
-		
-		ServicioContainer servicioLavado = mock(ServicioLavado.class);
-		when(servicioLavado.costoDelServicio()).thenReturn(400.00);
-
-		ServicioContainer servicioPesado = mock(ServicioPesado.class);
-		when(servicioPesado.costoDelServicio()).thenReturn(1000.00);
-		
-		List<ServicioContainer> serviciosOrdenDeImportacion = new ArrayList<>();
-		serviciosOrdenDeImportacion.add(servicioAlmacenamiento);
-		serviciosOrdenDeImportacion.add(servicioElectricidad);
-		List<ServicioContainer> serviciosOrdenDeExportacion = new ArrayList<>();
-		serviciosOrdenDeExportacion.add(servicioPesado);
-		serviciosOrdenDeExportacion.add(servicioElectricidad);
-		serviciosOrdenDeExportacion.add(servicioLavado);
-		
-		OrdenDeExportacion ordenDeExportacion = mock(OrdenDeExportacion.class);
-		when(ordenDeExportacion.getServiciosDeContainer()).thenReturn(serviciosOrdenDeExportacion);
-		OrdenDeImportacion ordenDeImportacion = mock(OrdenDeImportacion.class);
-		when(ordenDeImportacion.getServiciosDeContainer()).thenReturn(serviciosOrdenDeImportacion);
 		
 		terminal = new Terminal("terminalUno");
-		terminal.registrarOrdenDeExportacion(ordenDeExportacion);
-		terminal.registrarOrdenDeImportacion(ordenDeImportacion);
+		terminal.registrarOrdenDeExportacion(ordenDeExportacionMock(300.00));
+		terminal.registrarOrdenDeImportacion(ordenDeImportacionMock(500.00));
+		terminal.registrarChofer(choferMock("Juan"));
 	}
 	
 	@Test
 	public void testTerminal() {
-//		assertEquals(300.00, terminal.costoDeServiciosDeOrdenExportacion(ordenDeExportacion), 0.01);
-//		assertEquals(300.00, terminal.costoDeServiciosDeOrdenImportacion(ordenDeImportacion), 0.01);
+		
+		assertEquals(300.00, terminal.costoDeServiciosDeOrdenExportacion(ordenDeExportacionMock(300.00)), 0.01);
+		assertEquals(500.00, terminal.costoDeServiciosDeOrdenImportacion(ordenDeImportacionMock(500.00)), 0.01);
+		assertEquals(true, terminal.estaElChoferRegistrado(choferMock("Juan")));
 	}
 
+	private OrdenDeExportacion ordenDeExportacionMock(double costo) {
+		OrdenDeExportacion ordenDeExportacion = mock(OrdenDeExportacion.class);
+		when(ordenDeExportacion.costoDeServicios()).thenReturn(costo);
+		return ordenDeExportacion;
+	}
+	
+	private OrdenDeImportacion ordenDeImportacionMock(double costo) {
+		OrdenDeImportacion ordenDeImportacion = mock(OrdenDeImportacion.class);
+		when(ordenDeImportacion.costoDeServicios()).thenReturn(costo);
+		return ordenDeImportacion;
+	}
+	
+	private Chofer choferMock(String nombre) {
+		Chofer chofer = mock(Chofer.class);
+		when(chofer.getNombre()).thenReturn(nombre);
+		return chofer;
+	}
+	
 }
