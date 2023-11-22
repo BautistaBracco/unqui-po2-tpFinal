@@ -12,10 +12,10 @@ import ar.edu.unq.po2.tpFinal.container.Container;
 import ar.edu.unq.po2.tpFinal.container.ContainerReefer;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
-import ar.edu.unq.po2.tpFinal.viaje.Viaje;
-import ar.edu.unq.po2.tpFinal.orden.Cliente;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
+import ar.edu.unq.po2.tpFinal.viaje.Viaje;
+import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioAlmacenamiento;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioContainer;
 import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioElectricidad;
@@ -24,8 +24,8 @@ import ar.edu.unq.po2.tpFinal.servicioContainer.ServicioPesado;
 
 public class OrdenTest {
 
-	private OrdenDeExportacion ordenDeExportacion;
 	private OrdenDeImportacion ordenDeImportacion;
+	private OrdenDeExportacion ordenDeExportacion;
 	private LocalDateTime fechaDeLlegada;
 	private LocalDateTime fechaDeSalida;
 	
@@ -41,7 +41,6 @@ public class OrdenTest {
 		Chofer chofer = mock(Chofer.class);
 		
 		Cliente shipper = mock(Cliente.class);
-		Cliente consignee = mock(Cliente.class);
 		
 		ServicioContainer servicioElectricidad = mock(ServicioElectricidad.class);
 
@@ -49,22 +48,13 @@ public class OrdenTest {
 
 		ServicioContainer servicioLavado = mock(ServicioLavado.class);
 
-		ServicioContainer servicioPesado = mock(ServicioPesado.class);
+		ServicioContainer servicioPesado = mock(ServicioPesado.class); 
 		
 		fechaDeSalida = LocalDateTime.of(2010, 01, 30, 8, 0);
 		fechaDeLlegada = LocalDateTime.of(2010, 05, 10, 16, 0);
 		
-		ordenDeExportacion = new OrdenDeExportacion(container, shipper, camion, chofer, viaje, fechaDeLlegada, fechaDeSalida);
-		ordenDeExportacion.agregarServicio(servicioLavado);
-		ordenDeExportacion.agregarServicio(servicioPesado);
-		ordenDeExportacion.agregarServicio(servicioElectricidad);
-		ordenDeExportacion.agregarServicio(servicioAlmacenamiento);
+		ordenDeExportacion = new OrdenDeExportacion(container, shipper, camion, chofer, viaje, fechaDeSalida, fechaDeLlegada);
 		
-		ordenDeImportacion = new OrdenDeImportacion(container, consignee, camion, chofer, viaje);
-		ordenDeImportacion.agregarServicio(servicioAlmacenamiento);
-		ordenDeImportacion.agregarServicio(servicioElectricidad);
-		ordenDeImportacion.agregarServicio(servicioPesado);
-		ordenDeImportacion.agregarServicio(servicioLavado);
 	}
 	
 	@Test

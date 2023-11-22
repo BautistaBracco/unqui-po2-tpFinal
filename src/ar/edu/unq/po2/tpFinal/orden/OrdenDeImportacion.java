@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.tpFinal.orden;
 
+import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.container.Container;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
