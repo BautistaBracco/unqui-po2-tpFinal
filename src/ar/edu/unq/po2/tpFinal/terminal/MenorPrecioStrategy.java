@@ -7,19 +7,19 @@ import java.util.stream.Collectors;
 
 public class MenorPrecioStrategy extends MejorCircuitoStrategy {
     public MenorPrecioStrategy(
-            List<CircuitoMaritimoInterface> circuitosMaritimos, TerminalInterface terminalOrigen,
-            TerminalInterface terminalDestino
+            TerminalInterface terminalOrigen
     ) {
-        super(circuitosMaritimos, terminalOrigen, terminalDestino);
+        super(terminalOrigen);
     }
 
     @Override
-    public CircuitoMaritimoInterface getMejorCircuito() {
-        return super
-                .getCircuitosMaritimos()
+    public CircuitoMaritimoInterface getMejorCircuitoPara(
+            TerminalInterface destino, List<CircuitoMaritimoInterface> circuitosMaritimos
+    ) {
+        return circuitosMaritimos
                 .stream()
-                .collect(Collectors.toMap(circuito -> circuito.precioEntreTramos(super.getTerminalOrigen(),
-                        super.getTerminalDestino()), circuito -> circuito))
+                .collect(Collectors.toMap(circuito -> circuito.precioEntreTramos(super.getTerminalOrigen(), destino),
+                        circuito -> circuito))
                 .entrySet()
                 .stream()
                 .min((circuitoLlaveValor1, circuitoLlaveValor2) -> circuitoLlaveValor1

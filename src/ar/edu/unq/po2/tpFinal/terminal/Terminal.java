@@ -10,12 +10,11 @@ import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class Terminal implements TerminalInterface {
     private String nombre;
+    private MejorCircuitoStrategy mejorCircuitoStrategy;
     private List<CamionInterface> camionesRegistrados;
     private List<ChoferInterface> choferesRegistrados;
     private List<NavieraInterface> lineasNavierasRegistradas;
@@ -25,6 +24,7 @@ public class Terminal implements TerminalInterface {
 
     public Terminal(String nombre) {
         this.nombre = nombre;
+        this.mejorCircuitoStrategy = new MenorTiempoStrategy(this);
         this.camionesRegistrados = new ArrayList<>();
         this.choferesRegistrados = new ArrayList<>();
         this.lineasNavierasRegistradas = new ArrayList<>();
@@ -76,11 +76,15 @@ public class Terminal implements TerminalInterface {
     @Override
     public void registrarCircuitoMaritimo(CircuitoMaritimoInterface circuitoMaritimo) {
         this.circuitosMaritimos.add(circuitoMaritimo);
+
     }
 
+    public void setMejorCircuitoStrategy(MejorCircuitoStrategy mejorCircuitoStrategy) {
+        this.mejorCircuitoStrategy = mejorCircuitoStrategy;
+    }
 
-    public CircuitoMaritimoInterface getMejorCircuito(MejorCircuitoStrategy mejorCircuitoStrategy) {
-        return mejorCircuitoStrategy.getMejorCircuito();
+    public CircuitoMaritimoInterface getMejorCircuito(TerminalInterface destino) {
+        return mejorCircuitoStrategy.getMejorCircuitoPara(destino, this.circuitosMaritimos);
     }
 
     public Duration cuantoTardaNavieraEnIrA(TerminalInterface destino, NavieraInterface naviera) {
