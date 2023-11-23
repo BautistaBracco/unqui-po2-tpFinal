@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
@@ -18,9 +19,11 @@ public class NavieraTest {
     private Naviera naviera;
     private TerminalInterface terminalBuenosAires;
     private TerminalInterface terminalMontevideo;
+    private LocalDateTime fecha;
 
     @Before
     public void setUp() {
+        this.fecha = LocalDateTime.now().plus(Duration.ofDays(1));
         this.naviera = new Naviera();
         this.terminalBuenosAires = mock(TerminalInterface.class);
         this.terminalMontevideo = mock(TerminalInterface.class);
@@ -40,7 +43,12 @@ public class NavieraTest {
         this.naviera.agregarCircuito(mock(CircuitoMaritimoInterface.class));
         this.naviera.agregarCircuito(mock(CircuitoMaritimoInterface.class));
 
-        this.naviera.agregarViaje(mock(ViajesInterface.class));
+        ViajesInterface unViaje = mock(ViajesInterface.class);
+        when(unViaje.tieneMismaTerminalOrigen(this.terminalBuenosAires)).thenReturn(true);
+        when(unViaje.existeDestino(this.terminalMontevideo)).thenReturn(true);
+        when(unViaje.getFechaDeSalida()).thenReturn(fecha);
+
+        this.naviera.agregarViaje(unViaje);
         this.naviera.agregarViaje(mock(ViajesInterface.class));
         this.naviera.agregarViaje(mock(ViajesInterface.class));
         this.naviera.agregarViaje(mock(ViajesInterface.class));
@@ -74,6 +82,14 @@ public class NavieraTest {
     public void testTiempoDeViaje() {
         assertEquals(Duration.ofDays(3),
                 this.naviera.getTiempoDeViaje(this.terminalBuenosAires, this.terminalMontevideo));
+    }
+
+    @Test
+    public void testFechaDeProximoViaje() {
+        assertEquals(fecha,
+                this.naviera.getFechaDeProximoViaje(this.terminalBuenosAires,
+                        this.terminalMontevideo,
+                        LocalDateTime.now()));
     }
 
 }

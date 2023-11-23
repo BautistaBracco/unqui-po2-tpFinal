@@ -29,6 +29,7 @@ public class ViajeTest {
         when(circuitoMaritimoMock.tiempoEntreTramos(this.terminalOrigen,
                 this.terminalDestino)).thenReturn(Duration.ofDays(1));
         when(circuitoMaritimoMock.existeTerminal(this.terminalDestino)).thenReturn(true);
+        when(circuitoMaritimoMock.precioEntreTramos(this.terminalOrigen, this.terminalDestino)).thenReturn(100);
 
         this.viaje = new Viaje(LocalDateTime.of(2023, 10, 10, 10, 10),
                 this.terminalOrigen,
@@ -59,6 +60,11 @@ public class ViajeTest {
     @Test
     public void existeDestinoTest() {
         assertEquals(true, this.viaje.existeDestino(this.terminalDestino));
+    }
+
+    @Test
+    public void costoDeViajeTest() {
+        assertEquals(100, this.viaje.costoDeViaje(this.terminalDestino));
     }
 
     private TerminalInterface mockTerminal() {

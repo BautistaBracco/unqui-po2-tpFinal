@@ -1,5 +1,8 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
@@ -21,9 +24,9 @@ public interface TerminalInterface {
     void registrarShipper(Cliente cliente);
 
     void registrarConsignee(Cliente cliente);
-    
+
     void registrarOrdenDeExportacion(OrdenDeExportacion ordenDeExportacion);
-    
+
     void registrarOrdenDeImportacion(OrdenDeImportacion ordenDeImportacion);
 
     void registrarCamion(CamionInterface camion);
@@ -35,17 +38,24 @@ public interface TerminalInterface {
     void registrarCircuitoMaritimo(CircuitoMaritimoInterface circuitoMaritimo);
 
     boolean estaElChoferRegistrado(ChoferInterface chofer);
-    
+
     double costoDeServiciosDeOrdenExportacion(OrdenDeExportacion ordenDeExportacion);
-    
+
     double costoDeServiciosDeOrdenImportacion(OrdenDeImportacion ordenDeImportacion);
 
     List<OrdenDeImportacion> ordenesDeImportacionDelViaje(Viaje viaje);
-    
+
     List<OrdenDeExportacion> ordenesDeExportacionDelViaje(Viaje viaje);
-    
+
     void informarConsigneesDelViaje(Viaje viaje);
-    
+
     void informarShippersDelViaje(Viaje viaje);
-    
+
+    Duration cuantoTardaNavieraEnIrA(TerminalInterface destino, NavieraInterface naviera);
+
+    CircuitoMaritimoInterface getMejorCircuito(TerminalInterface destino);
+
+    LocalDateTime fechaDeProximoBuqueA(TerminalInterface destino, LocalDateTime now);
+
+    List<NavieraInterface> getLineasNavierasRegistradas();
 }

@@ -7,8 +7,14 @@ import java.time.LocalDateTime;
 
 public interface ViajesInterface {
     LocalDateTime getFechaDeLlegada(TerminalInterface terminalDestino);
+
     LocalDateTime getFechaDeSalida();
+
     TerminalInterface getTerminalOrigen();
+
     boolean existeDestino(TerminalInterface terminalDestino);
-    double costoDeViaje(TerminalInterface terminalDestino);
+
+    boolean tieneMismaTerminalOrigen(TerminalInterface terminalOrigen);
+
+    int costoDeViaje(TerminalInterface terminalDestino);
 }

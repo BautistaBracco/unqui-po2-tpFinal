@@ -6,6 +6,7 @@ import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
 import ar.edu.unq.po2.tpFinal.viaje.ViajesInterface;
 
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -42,6 +43,20 @@ public class Naviera implements NavieraInterface {
 
     public List<ViajesInterface> getViajes() {
         return this.viajes;
+    }
+
+    @Override
+    public LocalDateTime getFechaDeProximoViaje(
+            TerminalInterface origen, TerminalInterface destino, LocalDateTime fecha
+    ) {
+        return this.viajes
+                .stream()
+                .filter(viaje -> viaje.tieneMismaTerminalOrigen(origen) &&
+                                 viaje.existeDestino(destino) &&
+                                 viaje.getFechaDeSalida().isAfter(fecha))
+                .map(viajesInterface -> viajesInterface.getFechaDeSalida())
+                .min((localDateTime, other) -> localDateTime.compareTo(other))
+                .get();
     }
 
     public List<CircuitoMaritimoInterface> getCircuitosConTerminalesDeOrigenYDestino(
