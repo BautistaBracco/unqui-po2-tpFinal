@@ -1,24 +1,24 @@
 package ar.edu.unq.po2.tpFinal.circuito;
 
 
-import ar.edu.unq.po2.tpFinal.BuqueInterface;
-import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
+import ar.edu.unq.po2.tpFinal.buque.Buque;
+import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CircuitoMaritimo implements CircuitoMaritimoInterface {
-    private final List<TramoInterface> tramos;
-    private final List<BuqueInterface> buques;
+public class CircuitoMaritimo {
+    private final List<Tramo> tramos;
+    private final List<Buque> buques;
 
     public CircuitoMaritimo() {
         this.tramos = new ArrayList<>();
         this.buques = new ArrayList<>();
     }
 
-    public void agregarBuque(BuqueInterface buque) {
+    public void agregarBuque(Buque buque) {
         this.buques.add(buque);
     }
 
@@ -32,7 +32,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
      * 2. El tramo no puede tener el mismo puerto de origen y destino que otro tramo
      * 3. El puerto de destino del último tramo debe ser el mismo que el puerto de origen que el primer tramo
      * */
-    public void agregarTramo(TramoInterface tramo) {
+    public void agregarTramo(Tramo tramo) {
         this.tramos.add(tramo);
     }
 
@@ -42,15 +42,15 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
 
 
     // si falla es porque hay al menos un tramo que no está conectado con ninguno
-    private List<TramoInterface> tramosEntre(TerminalInterface origen, TerminalInterface destino) {
+    private List<Tramo> tramosEntre(Terminal origen, Terminal destino) {
 
-        List<TramoInterface> tramos = new ArrayList<>();
+        List<Tramo> tramos = new ArrayList<>();
         if (!this.existeTerminal(origen) || !this.existeTerminal(destino)) {
             System.out.println("No existe puerto");
             return tramos;
         }
 
-        TramoInterface tramoActual = this.getTramoConOrigen(origen);
+        Tramo tramoActual = this.getTramoConOrigen(origen);
         tramos.add(tramoActual);
 
         // verifico que el si el primer tramo contiene el destino
@@ -67,11 +67,11 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
         return tramos;
     }
 
-    public int cantidadDeTramosEntre(TerminalInterface origen, TerminalInterface destino) {
+    public int cantidadDeTramosEntre(Terminal origen, Terminal destino) {
         return this.tramosEntre(origen, destino).size();
     }
 
-    public int precioEntreTramos(TerminalInterface origen, TerminalInterface destino) {
+    public int precioEntreTramos(Terminal origen, Terminal destino) {
         return this.tramosEntre(origen, destino).stream().mapToInt(tramo -> tramo.getPrecio()).sum();
     }
 
@@ -79,7 +79,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
         return this.tramos.stream().mapToInt(tramo -> tramo.getPrecio()).sum();
     }
 
-    public Duration tiempoEntreTramos(TerminalInterface origen, TerminalInterface destino) {
+    public Duration tiempoEntreTramos(Terminal origen, Terminal destino) {
         return this
                 .tramosEntre(origen, destino)
                 .stream()
@@ -96,7 +96,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
                         (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
     }
 
-    private TramoInterface getTramoConOrigen(TerminalInterface origen) {
+    private Tramo getTramoConOrigen(Terminal origen) {
         return this.tramos
                 .stream()
                 .filter(tramo -> tramo.getPuertoOrigen().getNombre().equals(origen.getNombre()))
@@ -104,7 +104,7 @@ public class CircuitoMaritimo implements CircuitoMaritimoInterface {
                 .get();
     }
 
-    public boolean existeTerminal(TerminalInterface terminal) {
+    public boolean existeTerminal(Terminal terminal) {
         return this.tramos
                 .stream()
                 .anyMatch(tramo -> Objects.equals(tramo.getPuertoOrigen().getNombre(), terminal.getNombre()) ||

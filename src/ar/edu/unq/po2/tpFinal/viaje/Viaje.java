@@ -1,21 +1,21 @@
 package ar.edu.unq.po2.tpFinal.viaje;
 
-import ar.edu.unq.po2.tpFinal.BuqueInterface;
-import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
-import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
+import ar.edu.unq.po2.tpFinal.buque.Buque;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
+import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-public class Viaje implements ViajesInterface {
+public class Viaje {
     private final LocalDateTime fechaSalida;
-    private final TerminalInterface terminalOrigen;
-    private final CircuitoMaritimoInterface circuitoMaritimo;
-    private final BuqueInterface buque;
+    private final Terminal terminalOrigen;
+    private final CircuitoMaritimo circuitoMaritimo;
+    private final Buque buque;
 
     public Viaje(
-            LocalDateTime fechaSalida, TerminalInterface terminalOrigen, CircuitoMaritimoInterface circuitoMaritimo,
-            BuqueInterface buque
+            LocalDateTime fechaSalida, Terminal terminalOrigen, CircuitoMaritimo circuitoMaritimo,
+            Buque buque
     ) {
         this.fechaSalida = fechaSalida;
         this.terminalOrigen = terminalOrigen;
@@ -23,40 +23,38 @@ public class Viaje implements ViajesInterface {
         this.buque = buque;
     }
 
-    @Override
-    public LocalDateTime getFechaDeLlegada(TerminalInterface terminalDestino) {
+    public LocalDateTime getFechaDeLlegada(Terminal terminalDestino) {
         return this.fechaSalida.plus(this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino));
     }
 
-    @Override
     public LocalDateTime getFechaDeSalida() {
         return this.fechaSalida;
     }
 
-    public Duration getTiempoDeViaje(TerminalInterface terminalDestino) {
+    public Duration getTiempoDeViaje(Terminal terminalDestino) {
         return this.circuitoMaritimo.tiempoEntreTramos(terminalOrigen, terminalDestino);
     }
 
-    public BuqueInterface getBuque() {
+    public Buque getBuque() {
         return buque;
     }
 
-    public TerminalInterface getTerminalOrigen() {
+    public Terminal getTerminalOrigen() {
         return terminalOrigen;
     }
 
-    @Override
-    public boolean existeDestino(TerminalInterface terminalDestino) {
+
+    public boolean existeDestino(Terminal terminalDestino) {
         return this.circuitoMaritimo.existeTerminal(terminalDestino);
     }
 
-    @Override
-    public boolean tieneMismaTerminalOrigen(TerminalInterface terminalOrigen) {
+
+    public boolean tieneMismaTerminalOrigen(Terminal terminalOrigen) {
         return this.terminalOrigen.getNombre().equals(terminalOrigen.getNombre());
     }
 
-    @Override
-    public int costoDeViaje(TerminalInterface terminalDestino) {
+
+    public int costoDeViaje(Terminal terminalDestino) {
         return circuitoMaritimo.precioEntreTramos(terminalOrigen, terminalDestino);
     }
 }

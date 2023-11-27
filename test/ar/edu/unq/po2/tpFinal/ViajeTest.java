@@ -1,8 +1,9 @@
 package ar.edu.unq.po2.tpFinal;
 
-import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
+import ar.edu.unq.po2.tpFinal.buque.Buque;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.viaje.Viaje;
-import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
+import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,9 +16,9 @@ import static org.mockito.Mockito.when;
 
 public class ViajeTest {
     private Viaje viaje;
-    private TerminalInterface terminalOrigen;
-    private TerminalInterface terminalDestino;
-    private BuqueInterface buque;
+    private Terminal terminalOrigen;
+    private Terminal terminalDestino;
+    private Buque buque;
 
     @Before
     public void setUp() {
@@ -25,7 +26,7 @@ public class ViajeTest {
         this.terminalDestino = this.mockTerminal();
         this.buque = this.mockBuque();
 
-        CircuitoMaritimoInterface circuitoMaritimoMock = mock(CircuitoMaritimoInterface.class);
+        CircuitoMaritimo circuitoMaritimoMock = mock(CircuitoMaritimo.class);
         when(circuitoMaritimoMock.tiempoEntreTramos(this.terminalOrigen,
                 this.terminalDestino)).thenReturn(Duration.ofDays(1));
         when(circuitoMaritimoMock.existeTerminal(this.terminalDestino)).thenReturn(true);
@@ -67,12 +68,12 @@ public class ViajeTest {
         assertEquals(100, this.viaje.costoDeViaje(this.terminalDestino));
     }
 
-    private TerminalInterface mockTerminal() {
-        return mock(TerminalInterface.class);
+    private Terminal mockTerminal() {
+        return mock(Terminal.class);
     }
 
-    private BuqueInterface mockBuque() {
-        return mock(BuqueInterface.class);
+    private Buque mockBuque() {
+        return mock(Buque.class);
     }
 
 }

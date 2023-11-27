@@ -1,8 +1,9 @@
 package ar.edu.unq.po2.tpFinal;
 
+import ar.edu.unq.po2.tpFinal.buque.Buque;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
-import ar.edu.unq.po2.tpFinal.circuito.TramoInterface;
-import ar.edu.unq.po2.tpFinal.terminal.TerminalInterface;
+import ar.edu.unq.po2.tpFinal.circuito.Tramo;
+import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -16,10 +17,10 @@ import static org.mockito.Mockito.when;
 public class CircuitoMaritimoTest {
 
     private CircuitoMaritimo circuitoMaritimo;
-    private TerminalInterface terminalBuenosAires;
-    private TerminalInterface terminalMontevideo;
-    private TerminalInterface terminalBahia;
-    private TerminalInterface terminalRioDeJaneiro;
+    private Terminal terminalBuenosAires;
+    private Terminal terminalMontevideo;
+    private Terminal terminalBahia;
+    private Terminal terminalRioDeJaneiro;
 
 
     @Before
@@ -30,14 +31,14 @@ public class CircuitoMaritimoTest {
         this.terminalBahia = this.mockTerminal("Bahia");
         this.terminalRioDeJaneiro = this.mockTerminal("Rio de Janeiro");
 
-        TramoInterface tramo1 = this.mockTramo(this.terminalBuenosAires,
+        Tramo tramo1 = this.mockTramo(this.terminalBuenosAires,
                 this.terminalMontevideo,
                 100,
                 Duration.ofDays(1));
 
-        TramoInterface tramo2 = this.mockTramo(this.terminalMontevideo, this.terminalBahia, 100, Duration.ofDays(4));
-        TramoInterface tramo3 = this.mockTramo(this.terminalBahia, this.terminalRioDeJaneiro, 100, Duration.ofDays(3));
-        TramoInterface tramo4 = this.mockTramo(this.terminalRioDeJaneiro,
+        Tramo tramo2 = this.mockTramo(this.terminalMontevideo, this.terminalBahia, 100, Duration.ofDays(4));
+        Tramo tramo3 = this.mockTramo(this.terminalBahia, this.terminalRioDeJaneiro, 100, Duration.ofDays(3));
+        Tramo tramo4 = this.mockTramo(this.terminalRioDeJaneiro,
                 this.terminalBuenosAires,
                 100,
                 Duration.ofDays(10));
@@ -47,9 +48,9 @@ public class CircuitoMaritimoTest {
         this.circuitoMaritimo.agregarTramo(tramo3);
         this.circuitoMaritimo.agregarTramo(tramo4);
 
-        BuqueInterface buque1 = mock(BuqueInterface.class);
-        BuqueInterface buque2 = mock(BuqueInterface.class);
-        BuqueInterface buque3 = mock(BuqueInterface.class);
+        Buque buque1 = mock(Buque.class);
+        Buque buque2 = mock(Buque.class);
+        Buque buque3 = mock(Buque.class);
 
         this.circuitoMaritimo.agregarBuque(buque1);
         this.circuitoMaritimo.agregarBuque(buque2);
@@ -99,9 +100,9 @@ public class CircuitoMaritimoTest {
     }
 
 
-    private TramoInterface mockTramo(TerminalInterface origen, TerminalInterface destino, int precio, Duration tiempo) {
+    private Tramo mockTramo(Terminal origen, Terminal destino, int precio, Duration tiempo) {
 
-        TramoInterface tramo = mock(TramoInterface.class);
+        Tramo tramo = mock(Tramo.class);
         when(tramo.getPuertoOrigen()).thenReturn(origen);
         when(tramo.getPuertoDestino()).thenReturn(destino);
         when(tramo.getPrecio()).thenReturn(precio);
@@ -109,8 +110,8 @@ public class CircuitoMaritimoTest {
         return tramo;
     }
 
-    private TerminalInterface mockTerminal(String nombre) {
-        TerminalInterface terminal = mock(TerminalInterface.class);
+    private Terminal mockTerminal(String nombre) {
+        Terminal terminal = mock(Terminal.class);
         when(terminal.getNombre()).thenReturn(nombre);
         return terminal;
     }

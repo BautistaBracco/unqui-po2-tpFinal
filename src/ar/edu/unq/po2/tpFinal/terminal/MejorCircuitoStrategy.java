@@ -1,23 +1,23 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
-import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 
 import java.util.List;
 
 public abstract class MejorCircuitoStrategy {
-    private TerminalInterface terminalOrigen;
+    private Terminal terminalOrigen;
 
     public MejorCircuitoStrategy(
-            TerminalInterface terminalOrigen
+            Terminal terminalOrigen
     ) {
         this.terminalOrigen = terminalOrigen;
     }
 
-    public abstract CircuitoMaritimoInterface getMejorCircuitoPara(
-            TerminalInterface destino, List<CircuitoMaritimoInterface> circuitosMaritimos
+    public abstract CircuitoMaritimo getMejorCircuitoPara(
+            Terminal destino, List<CircuitoMaritimo> circuitosMaritimos
     );
 
-    public TerminalInterface getTerminalOrigen() {
+    public Terminal getTerminalOrigen() {
         return terminalOrigen;
     }
 

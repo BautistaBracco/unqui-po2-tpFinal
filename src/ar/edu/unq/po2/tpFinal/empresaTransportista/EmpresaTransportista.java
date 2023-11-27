@@ -3,10 +3,10 @@ package ar.edu.unq.po2.tpFinal.empresaTransportista;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EmpresaTransportista implements EmpresaTransportistaInterface {
+public class EmpresaTransportista {
     private final String nombre;
-    private final List<CamionInterface> camiones;
-    private final List<ChoferInterface> choferes;
+    private final List<Camion> camiones;
+    private final List<Chofer> choferes;
 
     public EmpresaTransportista(String nombre) {
         this.nombre = nombre;
@@ -19,22 +19,22 @@ public class EmpresaTransportista implements EmpresaTransportistaInterface {
         return this.nombre;
     }
 
-    @Override
-    public void agregarCamion(CamionInterface camion) {
+
+    public void agregarCamion(Camion camion) {
         this.camiones.add(camion);
     }
 
-    @Override
-    public void agregarChofer(ChoferInterface chofer) {
+
+    public void agregarChofer(Chofer chofer) {
         this.choferes.add(chofer);
     }
 
-    @Override
+
     public int cantidadDeChoferes() {
         return this.choferes.size();
     }
 
-    @Override
+
     public int cantidadDeCamiones() {
         return this.camiones.size();
     }

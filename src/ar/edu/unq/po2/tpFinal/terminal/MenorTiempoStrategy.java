@@ -1,6 +1,6 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
-import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -9,14 +9,14 @@ public class MenorTiempoStrategy extends MejorCircuitoStrategy {
 
 
     public MenorTiempoStrategy(
-            TerminalInterface terminalOrigen
+            Terminal terminalOrigen
     ) {
         super(terminalOrigen);
     }
 
     @Override
-    public CircuitoMaritimoInterface getMejorCircuitoPara(
-            TerminalInterface destino, List<CircuitoMaritimoInterface> circuitosMaritimos
+    public CircuitoMaritimo getMejorCircuitoPara(
+            Terminal destino, List<CircuitoMaritimo> circuitosMaritimos
     ) {
         return circuitosMaritimos
                 .stream()

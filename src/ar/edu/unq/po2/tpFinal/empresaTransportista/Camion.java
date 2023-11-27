@@ -1,38 +1,38 @@
 package ar.edu.unq.po2.tpFinal.empresaTransportista;
 
-import ar.edu.unq.po2.tpFinal.container.ContainerInterface;
+import ar.edu.unq.po2.tpFinal.container.Container;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Camion implements CamionInterface {
+public class Camion {
 
-    private final ChoferInterface chofer;
-    private final List<ContainerInterface> contenedores;
+    private final Chofer chofer;
+    private final List<Container> contenedores;
     private String patente;
 
-    public Camion(ChoferInterface chofer, String patente) {
+    public Camion(Chofer chofer, String patente) {
         this.chofer = chofer;
         this.patente = patente;
         this.contenedores = new ArrayList<>();
     }
 
-    @Override
-    public void agregarContenedor(ContainerInterface contenedor) {
+
+    public void agregarContenedor(Container contenedor) {
         this.contenedores.add(contenedor);
     }
 
-    @Override
-    public ChoferInterface getChofer() {
+
+    public Chofer getChofer() {
         return this.chofer;
     }
 
-    @Override
+
     public int cantidadDeContenedores() {
         return this.contenedores.size();
     }
 
-    @Override
+
     public Object getPatente() {
         return this.patente;
     }

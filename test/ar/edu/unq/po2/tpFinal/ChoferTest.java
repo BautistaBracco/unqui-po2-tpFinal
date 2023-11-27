@@ -1,7 +1,6 @@
 package ar.edu.unq.po2.tpFinal;
 
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
-import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -9,7 +8,7 @@ import static org.junit.Assert.assertEquals;
 
 
 public class ChoferTest {
-    private ChoferInterface chofer;
+    private Chofer chofer;
 
     @Before
     public void setUp() {

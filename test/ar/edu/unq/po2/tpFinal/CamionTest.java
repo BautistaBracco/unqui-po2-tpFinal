@@ -1,8 +1,8 @@
 package ar.edu.unq.po2.tpFinal;
 
-import ar.edu.unq.po2.tpFinal.container.ContainerInterface;
+import ar.edu.unq.po2.tpFinal.container.Container;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
-import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
+import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,11 +15,11 @@ public class CamionTest {
 
     @Before
     public void setUp() {
-        ChoferInterface chofer = mock(ChoferInterface.class);
+        Chofer chofer = mock(Chofer.class);
         when(chofer.getNombre()).thenReturn("Juan");
 
-        ContainerInterface contenedor1 = mock(ContainerInterface.class);
-        ContainerInterface contenedor2 = mock(ContainerInterface.class);
+        Container contenedor1 = mock(Container.class);
+        Container contenedor2 = mock(Container.class);
 
         this.camion = new Camion(chofer, "abcdadas");
 

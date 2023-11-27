@@ -1,30 +1,30 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
-import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimoInterface;
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
-import ar.edu.unq.po2.tpFinal.naviera.NavieraInterface;
+import ar.edu.unq.po2.tpFinal.naviera.Naviera;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
 import ar.edu.unq.po2.tpFinal.viaje.Viaje;
-import ar.edu.unq.po2.tpFinal.empresaTransportista.CamionInterface;
-import ar.edu.unq.po2.tpFinal.empresaTransportista.ChoferInterface;
+import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
+import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Terminal implements TerminalInterface {
+public class Terminal {
     private String nombre;
     private MejorCircuitoStrategy mejorCircuitoStrategy;
-    private List<CamionInterface> camionesRegistrados;
-    private List<ChoferInterface> choferesRegistrados;
-    private List<NavieraInterface> lineasNavierasRegistradas;
+    private List<Camion> camionesRegistrados;
+    private List<Chofer> choferesRegistrados;
+    private List<Naviera> lineasNavierasRegistradas;
     private List<Cliente> shippersRegistrados;
     private List<Cliente> consigneesRegistrados;
     private List<OrdenDeExportacion> ordenesDeExportacion;
     private List<OrdenDeImportacion> ordenesDeImportacion;
-    private List<CircuitoMaritimoInterface> circuitosMaritimos;
+    private List<CircuitoMaritimo> circuitosMaritimos;
 
     public Terminal(String nombre) {
         this.nombre = nombre;
@@ -39,12 +39,11 @@ public class Terminal implements TerminalInterface {
         this.circuitosMaritimos = new ArrayList<>();
     }
 
-    @Override
     public String getNombre() {
         return this.nombre;
     }
 
-    public List<NavieraInterface> getLineasNavierasRegistradas() {
+    public List<Naviera> getLineasNavierasRegistradas() {
         return lineasNavierasRegistradas;
     }
 
@@ -56,43 +55,35 @@ public class Terminal implements TerminalInterface {
         return consigneesRegistrados;
     }
 
-    @Override
-    public void registrarLineaNaviera(NavieraInterface lineaNaviera) {
+    public void registrarLineaNaviera(Naviera lineaNaviera) {
         this.lineasNavierasRegistradas.add(lineaNaviera);
     }
 
-    @Override
     public void registrarShipper(Cliente shipper) {
         this.shippersRegistrados.add(shipper);
     }
 
-    @Override
     public void registrarConsignee(Cliente consignee) {
         this.consigneesRegistrados.add(consignee);
     }
 
-    @Override
-    public void registrarCamion(CamionInterface camion) {
+    public void registrarCamion(Camion camion) {
         this.camionesRegistrados.add(camion);
     }
 
-    @Override
-    public boolean estaElCamionRegistrado(CamionInterface camion) {
+    public boolean estaElCamionRegistrado(Camion camion) {
         return this.camionesRegistrados.stream().anyMatch(c -> c.getPatente().equals(camion.getPatente()));
     }
 
-    @Override
-    public void registrarChofer(ChoferInterface chofer) {
+    public void registrarChofer(Chofer chofer) {
         this.choferesRegistrados.add(chofer);
     }
 
-    @Override
-    public boolean estaElChoferRegistrado(ChoferInterface chofer) {
+    public boolean estaElChoferRegistrado(Chofer chofer) {
         return this.choferesRegistrados.stream().anyMatch(c -> c.getNombre().equals(chofer.getNombre()));
     }
 
-    @Override
-    public void registrarCircuitoMaritimo(CircuitoMaritimoInterface circuitoMaritimo) {
+    public void registrarCircuitoMaritimo(CircuitoMaritimo circuitoMaritimo) {
         this.circuitosMaritimos.add(circuitoMaritimo);
 
     }
@@ -101,37 +92,30 @@ public class Terminal implements TerminalInterface {
         this.mejorCircuitoStrategy = mejorCircuitoStrategy;
     }
 
-    @Override
     public void registrarOrdenDeExportacion(OrdenDeExportacion ordenDeExportacion) {
         ordenesDeExportacion.add(ordenDeExportacion);
     }
 
-    @Override
     public void registrarOrdenDeImportacion(OrdenDeImportacion ordenDeImportacion) {
         ordenesDeImportacion.add(ordenDeImportacion);
     }
 
-    @Override
     public double costoDeServiciosDeOrdenExportacion(OrdenDeExportacion ordenDeExportacion) {
         return ordenDeExportacion.costoDeServicios();
     }
 
-    @Override
     public double costoDeServiciosDeOrdenImportacion(OrdenDeImportacion ordenDeImportacion) {
         return ordenDeImportacion.costoDeServicios() + ordenDeImportacion.getViaje().costoDeViaje(this);
     }
 
-    @Override
     public List<OrdenDeImportacion> ordenesDeImportacionDelViaje(Viaje viaje) {
         return ordenesDeImportacion.stream().filter(orden -> orden.getViaje().equals(viaje)).toList();
     }
 
-    @Override
     public List<OrdenDeExportacion> ordenesDeExportacionDelViaje(Viaje viaje) {
         return ordenesDeExportacion.stream().filter(orden -> orden.getViaje().equals(viaje)).toList();
     }
 
-    @Override
     public void informarConsigneesDelViaje(Viaje viaje) {
         List<String> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje)
                 .stream()
@@ -142,7 +126,6 @@ public class Terminal implements TerminalInterface {
         }
     }
 
-    @Override
     public void informarShippersDelViaje(Viaje viaje) {
 
         List<String> shippersDelViaje = ordenesDeImportacionDelViaje(viaje)
@@ -154,15 +137,15 @@ public class Terminal implements TerminalInterface {
         }
     }
 
-    public CircuitoMaritimoInterface getMejorCircuito(TerminalInterface destino) {
+    public CircuitoMaritimo getMejorCircuito(Terminal destino) {
         return mejorCircuitoStrategy.getMejorCircuitoPara(destino, this.circuitosMaritimos);
     }
 
-    public Duration cuantoTardaNavieraEnIrA(TerminalInterface destino, NavieraInterface naviera) {
+    public Duration cuantoTardaNavieraEnIrA(Terminal destino, Naviera naviera) {
         return naviera.getTiempoDeViaje(this, destino);
     }
 
-    public LocalDateTime fechaDeProximoBuqueA(TerminalInterface destino, LocalDateTime fecha) {
+    public LocalDateTime fechaDeProximoBuqueA(Terminal destino, LocalDateTime fecha) {
         return this.lineasNavierasRegistradas
                 .stream()
                 .map(lineaNaviera -> lineaNaviera.getFechaDeProximoViaje(this, destino, fecha))
