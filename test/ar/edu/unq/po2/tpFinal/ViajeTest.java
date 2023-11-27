@@ -11,6 +11,7 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -22,8 +23,8 @@ public class ViajeTest {
 
     @Before
     public void setUp() {
-        this.terminalOrigen = this.mockTerminal();
-        this.terminalDestino = this.mockTerminal();
+        this.terminalOrigen = this.mockTerminal("Buenos Aires");
+        this.terminalDestino = this.mockTerminal("Montevideo");
         this.buque = this.mockBuque();
 
         CircuitoMaritimo circuitoMaritimoMock = mock(CircuitoMaritimo.class);
@@ -39,8 +40,13 @@ public class ViajeTest {
     }
 
     @Test
-    public void testFechaDeLlegada() {
+    public void fechaDeLlegada() {
         assertEquals(LocalDateTime.of(2023, 10, 11, 10, 10), this.viaje.getFechaDeLlegada(this.terminalDestino));
+    }
+
+    @Test
+    public void fechaDeSalidaTest() {
+        assertEquals(LocalDateTime.of(2023, 10, 10, 10, 10), this.viaje.getFechaDeSalida());
     }
 
     @Test
@@ -60,7 +66,12 @@ public class ViajeTest {
 
     @Test
     public void existeDestinoTest() {
-        assertEquals(true, this.viaje.existeDestino(this.terminalDestino));
+        assertTrue(this.viaje.existeDestino(this.terminalDestino));
+    }
+
+    @Test
+    public void tieneMismaTerminalOrigenTest() {
+        assertTrue(this.viaje.tieneMismaTerminalOrigen(this.terminalOrigen));
     }
 
     @Test
@@ -68,8 +79,11 @@ public class ViajeTest {
         assertEquals(100, this.viaje.costoDeViaje(this.terminalDestino));
     }
 
-    private Terminal mockTerminal() {
-        return mock(Terminal.class);
+
+    private Terminal mockTerminal(String nombre) {
+        Terminal terminal = mock(Terminal.class);
+        when(terminal.getNombre()).thenReturn(nombre);
+        return terminal;
     }
 
     private Buque mockBuque() {

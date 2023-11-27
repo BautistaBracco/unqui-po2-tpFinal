@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class EmpresaTransportistaTest {
 
@@ -32,6 +31,10 @@ public class EmpresaTransportistaTest {
 
     }
 
+    @Test
+    public void testGetNombre() {
+        assertEquals("324", this.empresaTransportista.getNombre());
+    }
 
     @Test
     public void testCantidadDeChoferes() {
@@ -42,6 +45,23 @@ public class EmpresaTransportistaTest {
     public void testCantidadDeCamiones() {
         assertEquals(2, this.empresaTransportista.cantidadDeCamiones());
     }
+
+    @Test
+    public void agregarCamion() {
+        EmpresaTransportista empresaTransportistaMock = mock(EmpresaTransportista.class);
+        Camion camion = mock(Camion.class);
+        empresaTransportistaMock.agregarCamion(camion);
+        verify(empresaTransportistaMock).agregarCamion(camion);
+    }
+
+    @Test
+    public void agregarChofer() {
+        EmpresaTransportista empresaTransportistaMock = mock(EmpresaTransportista.class);
+        Chofer chofer = mock(Chofer.class);
+        empresaTransportistaMock.agregarChofer(chofer);
+        verify(empresaTransportistaMock).agregarChofer(chofer);
+    }
+
 
     private Camion mockCamion(Chofer chofer) {
         Camion camion = mock(Camion.class);

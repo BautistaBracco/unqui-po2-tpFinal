@@ -1,6 +1,5 @@
 package ar.edu.unq.po2.tpFinal.circuito;
 
-
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 
 import java.time.Duration;
@@ -14,7 +13,6 @@ public class CircuitoMaritimo {
     public CircuitoMaritimo() {
         this.tramos = new ArrayList<>();
     }
-
 
     // Tengo que ordenar los tramos?
     /*
