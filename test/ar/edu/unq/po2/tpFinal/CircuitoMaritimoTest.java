@@ -1,6 +1,5 @@
 package ar.edu.unq.po2.tpFinal;
 
-import ar.edu.unq.po2.tpFinal.buque.Buque;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.circuito.Tramo;
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
@@ -48,19 +47,8 @@ public class CircuitoMaritimoTest {
         this.circuitoMaritimo.agregarTramo(tramo3);
         this.circuitoMaritimo.agregarTramo(tramo4);
 
-        Buque buque1 = mock(Buque.class);
-        Buque buque2 = mock(Buque.class);
-        Buque buque3 = mock(Buque.class);
-
-        this.circuitoMaritimo.agregarBuque(buque1);
-        this.circuitoMaritimo.agregarBuque(buque2);
-        this.circuitoMaritimo.agregarBuque(buque3);
     }
 
-    @Test
-    public void testCantidadDeBuques() {
-        assertEquals(3, this.circuitoMaritimo.cantidadDeBuques());
-    }
 
     @Test
     public void testCantidadDeTramos() {

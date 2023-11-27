@@ -4,21 +4,11 @@ import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 
 import java.util.List;
 
-public abstract class MejorCircuitoStrategy {
-    private Terminal terminalOrigen;
+public interface MejorCircuitoStrategy {
 
-    public MejorCircuitoStrategy(
-            Terminal terminalOrigen
-    ) {
-        this.terminalOrigen = terminalOrigen;
-    }
-
-    public abstract CircuitoMaritimo getMejorCircuitoPara(
-            Terminal destino, List<CircuitoMaritimo> circuitosMaritimos
+    CircuitoMaritimo getMejorCircuitoPara(
+            Terminal origen, Terminal destino, List<CircuitoMaritimo> circuitosMaritimos
     );
 
-    public Terminal getTerminalOrigen() {
-        return terminalOrigen;
-    }
-
 }
+

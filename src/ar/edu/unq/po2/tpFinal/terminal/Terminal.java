@@ -28,7 +28,7 @@ public class Terminal {
 
     public Terminal(String nombre) {
         this.nombre = nombre;
-        this.mejorCircuitoStrategy = new MenorTiempoStrategy(this);
+        this.mejorCircuitoStrategy = new MenorTiempoStrategy();
         this.camionesRegistrados = new ArrayList<>();
         this.choferesRegistrados = new ArrayList<>();
         this.lineasNavierasRegistradas = new ArrayList<>();
@@ -138,7 +138,7 @@ public class Terminal {
     }
 
     public CircuitoMaritimo getMejorCircuito(Terminal destino) {
-        return mejorCircuitoStrategy.getMejorCircuitoPara(destino, this.circuitosMaritimos);
+        return mejorCircuitoStrategy.getMejorCircuitoPara(this, destino, this.circuitosMaritimos);
     }
 
     public Duration cuantoTardaNavieraEnIrA(Terminal destino, Naviera naviera) {
