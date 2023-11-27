@@ -14,8 +14,7 @@ public class Viaje {
     private final Buque buque;
 
     public Viaje(
-            LocalDateTime fechaSalida, Terminal terminalOrigen, CircuitoMaritimo circuitoMaritimo,
-            Buque buque
+            LocalDateTime fechaSalida, Terminal terminalOrigen, CircuitoMaritimo circuitoMaritimo, Buque buque
     ) {
         this.fechaSalida = fechaSalida;
         this.terminalOrigen = terminalOrigen;
@@ -50,7 +49,7 @@ public class Viaje {
 
 
     public boolean tieneMismaTerminalOrigen(Terminal terminalOrigen) {
-        return this.terminalOrigen.getNombre().equals(terminalOrigen.getNombre());
+        return this.terminalOrigen.getNombre() == terminalOrigen.getNombre();
     }
 
 

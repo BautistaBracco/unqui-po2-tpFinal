@@ -1,7 +1,5 @@
 package ar.edu.unq.po2.tpFinal.circuito;
 
-
-import ar.edu.unq.po2.tpFinal.buque.Buque;
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 
 import java.time.Duration;
@@ -11,19 +9,9 @@ import java.util.Objects;
 
 public class CircuitoMaritimo {
     private final List<Tramo> tramos;
-    private final List<Buque> buques;
 
     public CircuitoMaritimo() {
         this.tramos = new ArrayList<>();
-        this.buques = new ArrayList<>();
-    }
-
-    public void agregarBuque(Buque buque) {
-        this.buques.add(buque);
-    }
-
-    public int cantidadDeBuques() {
-        return this.buques.size();
     }
 
     // Tengo que ordenar los tramos?

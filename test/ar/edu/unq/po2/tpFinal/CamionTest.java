@@ -7,8 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class CamionTest {
     private Camion camion;
@@ -21,7 +20,7 @@ public class CamionTest {
         Container contenedor1 = mock(Container.class);
         Container contenedor2 = mock(Container.class);
 
-        this.camion = new Camion(chofer, "abcdadas");
+        this.camion = new Camion(chofer);
 
         this.camion.agregarContenedor(contenedor1);
         this.camion.agregarContenedor(contenedor2);
@@ -35,6 +34,14 @@ public class CamionTest {
     @Test
     public void testCantidadDeContenedores() {
         assertEquals(2, this.camion.cantidadDeContenedores());
+    }
+
+    @Test
+    public void agregarContenedor() {
+        Camion camionMock = mock(Camion.class);
+        Container contenedor = mock(Container.class);
+        camionMock.agregarContenedor(contenedor);
+        verify(camionMock).agregarContenedor(contenedor);
     }
 
 }

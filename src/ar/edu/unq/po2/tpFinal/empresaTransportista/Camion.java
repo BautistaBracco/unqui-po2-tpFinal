@@ -9,11 +9,9 @@ public class Camion {
 
     private final Chofer chofer;
     private final List<Container> contenedores;
-    private String patente;
 
-    public Camion(Chofer chofer, String patente) {
+    public Camion(Chofer chofer) {
         this.chofer = chofer;
-        this.patente = patente;
         this.contenedores = new ArrayList<>();
     }
 
@@ -32,8 +30,4 @@ public class Camion {
         return this.contenedores.size();
     }
 
-
-    public Object getPatente() {
-        return this.patente;
-    }
 }

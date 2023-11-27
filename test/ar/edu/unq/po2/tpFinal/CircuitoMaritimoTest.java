@@ -1,6 +1,5 @@
 package ar.edu.unq.po2.tpFinal;
 
-import ar.edu.unq.po2.tpFinal.buque.Buque;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.circuito.Tramo;
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
@@ -10,8 +9,7 @@ import org.junit.Test;
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 
 public class CircuitoMaritimoTest {
@@ -31,35 +29,17 @@ public class CircuitoMaritimoTest {
         this.terminalBahia = this.mockTerminal("Bahia");
         this.terminalRioDeJaneiro = this.mockTerminal("Rio de Janeiro");
 
-        Tramo tramo1 = this.mockTramo(this.terminalBuenosAires,
-                this.terminalMontevideo,
-                100,
-                Duration.ofDays(1));
-
+        Tramo tramo1 = this.mockTramo(this.terminalBuenosAires, this.terminalMontevideo, 100, Duration.ofDays(1));
         Tramo tramo2 = this.mockTramo(this.terminalMontevideo, this.terminalBahia, 100, Duration.ofDays(4));
         Tramo tramo3 = this.mockTramo(this.terminalBahia, this.terminalRioDeJaneiro, 100, Duration.ofDays(3));
-        Tramo tramo4 = this.mockTramo(this.terminalRioDeJaneiro,
-                this.terminalBuenosAires,
-                100,
-                Duration.ofDays(10));
+        Tramo tramo4 = this.mockTramo(this.terminalRioDeJaneiro, this.terminalBuenosAires, 100, Duration.ofDays(10));
 
         this.circuitoMaritimo.agregarTramo(tramo1);
         this.circuitoMaritimo.agregarTramo(tramo2);
         this.circuitoMaritimo.agregarTramo(tramo3);
         this.circuitoMaritimo.agregarTramo(tramo4);
 
-        Buque buque1 = mock(Buque.class);
-        Buque buque2 = mock(Buque.class);
-        Buque buque3 = mock(Buque.class);
 
-        this.circuitoMaritimo.agregarBuque(buque1);
-        this.circuitoMaritimo.agregarBuque(buque2);
-        this.circuitoMaritimo.agregarBuque(buque3);
-    }
-
-    @Test
-    public void testCantidadDeBuques() {
-        assertEquals(3, this.circuitoMaritimo.cantidadDeBuques());
     }
 
     @Test
@@ -97,6 +77,14 @@ public class CircuitoMaritimoTest {
     @Test
     public void existeTerminal() {
         assertEquals(true, this.circuitoMaritimo.existeTerminal(this.terminalBuenosAires));
+    }
+
+    @Test
+    public void agregarTramo() {
+        CircuitoMaritimo circuitoMaritimoMock = mock(CircuitoMaritimo.class);
+        Tramo tramo = mock(Tramo.class);
+        circuitoMaritimoMock.agregarTramo(tramo);
+        verify(circuitoMaritimoMock).agregarTramo(tramo);
     }
 
 

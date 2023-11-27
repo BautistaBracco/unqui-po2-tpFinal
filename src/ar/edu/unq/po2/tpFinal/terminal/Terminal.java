@@ -72,7 +72,7 @@ public class Terminal {
     }
 
     public boolean estaElCamionRegistrado(Camion camion) {
-        return this.camionesRegistrados.stream().anyMatch(c -> c.getPatente().equals(camion.getPatente()));
+        return this.camionesRegistrados.stream().anyMatch(c -> c.equals(camion));
     }
 
     public void registrarChofer(Chofer chofer) {
