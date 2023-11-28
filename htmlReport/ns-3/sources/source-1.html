@@ -1,0 +1,245 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > CircuitoMaritimo</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">ar.edu.unq.po2.tpFinal.circuito</a>
+</div>
+
+<h1>Coverage Summary for Class: CircuitoMaritimo (ar.edu.unq.po2.tpFinal.circuito)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">CircuitoMaritimo</td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (14/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (35/39)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$04gT073P</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$6MEqzeGy</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$fiAJVWsa</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$ILlcbJQc</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$o3x11Lli</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$pDEedD9T</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$qoEKsS7L</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$SM9Spuwi</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$TQZconIH</td>
+  </tr>
+  <tr>
+    <td class="name">CircuitoMaritimo$MockitoMock$mUxC3dmc$auxiliary$ww5NCRSo</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    87.5%
+  </span>
+  <span class="absValue">
+    (14/16)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    89.7%
+  </span>
+  <span class="absValue">
+    (35/39)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package ar.edu.unq.po2.tpFinal.circuito;
+&nbsp;
+&nbsp;import ar.edu.unq.po2.tpFinal.terminal.Terminal;
+&nbsp;
+&nbsp;import java.time.Duration;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Objects;
+&nbsp;
+&nbsp;public class CircuitoMaritimo {
+&nbsp;    private final List&lt;Tramo&gt; tramos;
+&nbsp;
+<b class="fc">&nbsp;    public CircuitoMaritimo() {</b>
+<b class="fc">&nbsp;        this.tramos = new ArrayList&lt;&gt;();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    // Tengo que ordenar los tramos?
+&nbsp;    /*
+&nbsp;     * 1. El mismo tramo no se puede agregar más de una vez
+&nbsp;     * 2. El tramo no puede tener el mismo puerto de origen y destino que otro tramo
+&nbsp;     * 3. El puerto de destino del último tramo debe ser el mismo que el puerto de origen que el primer tramo
+&nbsp;     * */
+&nbsp;    public void agregarTramo(Tramo tramo) {
+<b class="fc">&nbsp;        this.tramos.add(tramo);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int cantidadDeTramos() {
+<b class="fc">&nbsp;        return this.tramos.size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    // si falla es porque hay al menos un tramo que no está conectado con ninguno
+&nbsp;    private List&lt;Tramo&gt; tramosEntre(Terminal origen, Terminal destino) {
+&nbsp;
+<b class="fc">&nbsp;        List&lt;Tramo&gt; tramos = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        if (!this.existeTerminal(origen) || !this.existeTerminal(destino)) {</b>
+<b class="nc">&nbsp;            System.out.println(&quot;No existe puerto&quot;);</b>
+<b class="nc">&nbsp;            return tramos;</b>
+&nbsp;        }
+&nbsp;
+<b class="fc">&nbsp;        Tramo tramoActual = this.getTramoConOrigen(origen);</b>
+<b class="fc">&nbsp;        tramos.add(tramoActual);</b>
+&nbsp;
+&nbsp;        // verifico que el si el primer tramo contiene el destino
+<b class="fc">&nbsp;        if (Objects.equals(tramoActual.getPuertoDestino().getNombre(), destino.getNombre())) {</b>
+<b class="fc">&nbsp;            return tramos;</b>
+&nbsp;        }
+&nbsp;
+&nbsp;        // se ejecuta al menos una vez
+&nbsp;        do {
+<b class="fc">&nbsp;            tramoActual = this.getTramoConOrigen(tramoActual.getPuertoDestino());</b>
+<b class="fc">&nbsp;            tramos.add(tramoActual);</b>
+<b class="fc">&nbsp;        } while (!tramoActual.getPuertoDestino().getNombre().equals(destino.getNombre()));</b>
+&nbsp;
+<b class="fc">&nbsp;        return tramos;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int cantidadDeTramosEntre(Terminal origen, Terminal destino) {
+<b class="fc">&nbsp;        return this.tramosEntre(origen, destino).size();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int precioEntreTramos(Terminal origen, Terminal destino) {
+<b class="fc">&nbsp;        return this.tramosEntre(origen, destino).stream().mapToInt(tramo -&gt; tramo.getPrecio()).sum();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public int precioTotalDelCircuito() {
+<b class="fc">&nbsp;        return this.tramos.stream().mapToInt(tramo -&gt; tramo.getPrecio()).sum();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Duration tiempoEntreTramos(Terminal origen, Terminal destino) {
+<b class="fc">&nbsp;        return this</b>
+<b class="fc">&nbsp;                .tramosEntre(origen, destino)</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .reduce(Duration.ZERO,</b>
+<b class="fc">&nbsp;                        (tiempo, tramo) -&gt; tiempo.plus(tramo.getTiempo()),</b>
+<b class="nc">&nbsp;                        (tiempo1, tiempo2) -&gt; tiempo1.plus(tiempo2));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Duration tiempoTotalDelCircuito() {
+<b class="fc">&nbsp;        return this.tramos</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .reduce(Duration.ZERO,</b>
+<b class="fc">&nbsp;                        (tiempo, tramo) -&gt; tiempo.plus(tramo.getTiempo()),</b>
+<b class="nc">&nbsp;                        (tiempo1, tiempo2) -&gt; tiempo1.plus(tiempo2));</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    private Tramo getTramoConOrigen(Terminal origen) {
+<b class="fc">&nbsp;        return this.tramos</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .filter(tramo -&gt; tramo.getPuertoOrigen().getNombre().equals(origen.getNombre()))</b>
+<b class="fc">&nbsp;                .findFirst()</b>
+<b class="fc">&nbsp;                .get();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public boolean existeTerminal(Terminal terminal) {
+<b class="fc">&nbsp;        return this.tramos</b>
+<b class="fc">&nbsp;                .stream()</b>
+<b class="fc">&nbsp;                .anyMatch(tramo -&gt; Objects.equals(tramo.getPuertoOrigen().getNombre(), terminal.getNombre()) ||</b>
+<b class="fc">&nbsp;                                   Objects.equals(tramo.getPuertoDestino().getNombre(), terminal.getNombre()));</b>
+&nbsp;    }
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-11-27 23:17</div>
+</div>
+</body>
+</html>

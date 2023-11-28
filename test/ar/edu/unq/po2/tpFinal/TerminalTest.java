@@ -33,18 +33,18 @@ public class TerminalTest {
 
     @Before
     public void setUp() {
-    	camionMock = mock(Camion.class);
-    	viajeMock = viajeMock();
-    	ordenDeExportacionMock = ordenDeExportacionMock(viajeMock, 500.00);
-    	ordenDeImportacionMock = ordenDeImportacionMock(viajeMock, 700.00);
-    	terminalDestino = new Terminal("terminalDos");
-    	circuito = mock(MejorCircuitoStrategy.class);
-    	
-    	terminal = new Terminal("terminalUno");
+        camionMock = mock(Camion.class);
+        viajeMock = viajeMock();
+        ordenDeExportacionMock = ordenDeExportacionMock(viajeMock, 500.00);
+        ordenDeImportacionMock = ordenDeImportacionMock(viajeMock, 700.00);
+        terminalDestino = new Terminal("terminalDos");
+        circuito = mock(MejorCircuitoStrategy.class);
+
+        terminal = new Terminal("terminalUno");
         terminal.registrarOrdenDeExportacion(ordenDeExportacionMock);
         terminal.registrarOrdenDeImportacion(ordenDeImportacionMock);
         terminal.registrarChofer(choferMock("Juan"));
-        
+
         terminal.registrarConsignee(clienteMock());
         terminal.registrarShipper(clienteMock());
         terminal.registrarLineaNaviera(lineaNavieraMock());
@@ -59,28 +59,28 @@ public class TerminalTest {
 
     @Test
     public void testOrdenesDeExportacion() {
-    	// Lista simulada para el assert
+        // Lista simulada para el assert
         List<OrdenDeExportacion> ordenesDeExportacion = new ArrayList<>();
         ordenesDeExportacion.add(ordenDeExportacionMock);
         // Verifico que ambas listas sean iguales
         assertEquals(ordenesDeExportacion, terminal.ordenesDeExportacionDelViaje(viajeMock));
     }
-    
+
     @Test
     public void testOrdenesDeImportacion() {
-    	List<OrdenDeImportacion> ordenesDeImportacion = new ArrayList<>();
-    	ordenesDeImportacion.add(ordenDeImportacionMock);
-    	assertEquals(ordenesDeImportacion, terminal.ordenesDeImportacionDelViaje(viajeMock));
+        List<OrdenDeImportacion> ordenesDeImportacion = new ArrayList<>();
+        ordenesDeImportacion.add(ordenDeImportacionMock);
+        assertEquals(ordenesDeImportacion, terminal.ordenesDeImportacionDelViaje(viajeMock));
     }
-    
-    @Test 
+
+    @Test
     public void testGettersYRegistrar() {
-    	assertEquals("terminalUno", terminal.getNombre());
-    	assertEquals(1, terminal.getLineasNavierasRegistradas().size());
-    	assertEquals(1, terminal.getConsigneesRegistrados().size());
-    	assertEquals(1, terminal.getShippersRegistrados().size());
-    	assertEquals(true, terminal.estaElCamionRegistrado(camionMock));
-    	assertEquals(true, terminal.estaElChoferRegistrado(choferMock("Juan")));
+        assertEquals("terminalUno", terminal.getNombre());
+        assertEquals(1, terminal.getLineasNavierasRegistradas().size());
+        assertEquals(1, terminal.getConsigneesRegistrados().size());
+        assertEquals(1, terminal.getShippersRegistrados().size());
+        assertTrue(terminal.estaElCamionRegistrado(camionMock));
+        assertTrue(terminal.estaElChoferRegistrado(choferMock("Juan")));
 //    	assertEquals(circuito, terminal.getMejorCircuito(terminalDestino));
     }
 
@@ -90,13 +90,13 @@ public class TerminalTest {
         when(ordenDeExportacion.getViaje()).thenReturn(viaje);
         return ordenDeExportacion;
     }
-    
+
     private Viaje viajeMock() {
         Viaje viaje = mock(Viaje.class);
         LocalDateTime fechaSalida = LocalDateTime.now();
         when(viaje.costoDeViaje(terminal)).thenReturn(100);
         when(viaje.getFechaDeSalida()).thenReturn(fechaSalida);
-    	return viaje;
+        return viaje;
     }
 
     private OrdenDeImportacion ordenDeImportacionMock(Viaje viaje, double costo) {
@@ -112,13 +112,13 @@ public class TerminalTest {
         when(chofer.getNombre()).thenReturn(nombre);
         return chofer;
     }
-    
+
     private Cliente clienteMock() {
-    	return mock(Cliente.class);
+        return mock(Cliente.class);
     }
-    
+
     private Naviera lineaNavieraMock() {
-    	return mock(Naviera.class);
+        return mock(Naviera.class);
     }
-    
+
 }
