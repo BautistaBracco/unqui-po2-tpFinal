@@ -1,5 +1,6 @@
 package ar.edu.unq.po2.tpFinal;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -22,15 +23,13 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 public class ClienteTest {
 
 	private Cliente cliente;
+	private Terminal terminalGestionada;
 	
 	@Before
 	public void setUp() {
 		cliente = new Cliente("Juan");
-	}
-	
-	@Test
-	public void testCliente() {
-		Terminal terminalGestionada = mock(Terminal.class);
+		
+		terminalGestionada = mock(Terminal.class);
 		Terminal terminalDestino = mock(Terminal.class);
 		Viaje viaje = mock(Viaje.class);
 		LocalDateTime fechaSalida = LocalDateTime.now();
@@ -41,17 +40,26 @@ public class ClienteTest {
 		Camion camion = mock(Camion.class);
 		Chofer chofer = mock(Chofer.class);
 		
+		cliente.realizarPedidoDeImportacion(terminalGestionada, terminalDestino, viaje, container, camion, chofer);
+		
 		cliente.realizarPedidoDeExportacion(terminalGestionada, terminalDestino, viaje, container, camion, chofer);
+	}
+	
+	@Test
+	public void testClienteRegistroDeOrdenes() {
 		
 		verify(terminalGestionada).registrarOrdenDeExportacion(
                 ArgumentMatchers.any(OrdenDeExportacion.class)
         );
 		
-		cliente.realizarPedidoDeImportacion(terminalGestionada, terminalDestino, viaje, container, camion, chofer);
-		
 		verify(terminalGestionada).registrarOrdenDeImportacion(
                 ArgumentMatchers.any(OrdenDeImportacion.class)
         );
+	}
+	
+	@Test
+	public void testClienteGetters() {
+		assertEquals("Juan", cliente.getNombre());
 	}
 	
 }

@@ -57,12 +57,8 @@ public class ServicioContainerTest {
 	}
 	
 	@Test
-	public void testServicioPesado() {
+	public void testServiciosCostos() {
 		assertEquals(500, servicioContainerPesado.costoDelServicio(), 0.01);
-	}
-	
-	@Test 
-	public void testServicioLavado() {
 		assertEquals(10, servicioContainerLavadoReefer.costoDelServicio(), 0.01);
 		assertEquals(5, servicioContainerLavadoSeco.costoDelServicio(), 0.01);
 	}
