@@ -138,10 +138,11 @@ public class Terminal {
     }
 
     public CircuitoMaritimo getMejorCircuito(Terminal destino) {
-        return mejorCircuitoStrategy.getMejorCircuitoPara(this, destino, this.circuitosMaritimos);
+        return this.mejorCircuitoStrategy.getMejorCircuitoPara(this, destino, this.circuitosMaritimos);
     }
 
     public Duration cuantoTardaNavieraEnIrA(Terminal destino, Naviera naviera) {
+        System.out.println("Terminal: " + this.getNombre() + " - Naviera: " + naviera.toString());
         return naviera.getTiempoDeViaje(this, destino);
     }
 

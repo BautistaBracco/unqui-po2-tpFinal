@@ -1,13 +1,14 @@
 package ar.edu.unq.po2.tpFinal;
 
 import static org.junit.Assert.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -26,10 +27,13 @@ public class TerminalTest {
     private Terminal terminal;
     private Terminal terminalDestino;
     private Camion camionMock;
+    private Naviera naviera;
     private Viaje viajeMock;
     private OrdenDeExportacion ordenDeExportacionMock;
     private OrdenDeImportacion ordenDeImportacionMock;
-    private MejorCircuitoStrategy circuito;
+    private MejorCircuitoStrategy mejorCircuitoStrategy;
+    private List<CircuitoMaritimo> circuitosMaritimos;
+    private CircuitoMaritimo circuitoMaritimoADevolver;
 
     @Before
     public void setUp() {
@@ -38,17 +42,24 @@ public class TerminalTest {
         ordenDeExportacionMock = ordenDeExportacionMock(viajeMock, 500.00);
         ordenDeImportacionMock = ordenDeImportacionMock(viajeMock, 700.00);
         terminalDestino = new Terminal("terminalDos");
-        circuito = mock(MejorCircuitoStrategy.class);
+        mejorCircuitoStrategy = mejorCircuitoStrategyMock();
+        circuitoMaritimoADevolver = mock(CircuitoMaritimo.class);
+        circuitosMaritimos = List.of(circuitoMaritimoADevolver);
+        naviera = lineaNavieraMock();
+
 
         terminal = new Terminal("terminalUno");
         terminal.registrarOrdenDeExportacion(ordenDeExportacionMock);
         terminal.registrarOrdenDeImportacion(ordenDeImportacionMock);
+
         terminal.registrarChofer(choferMock("Juan"));
+        terminal.registrarCamion(camionMock);
 
         terminal.registrarConsignee(clienteMock());
         terminal.registrarShipper(clienteMock());
+
         terminal.registrarLineaNaviera(lineaNavieraMock());
-        terminal.registrarCamion(camionMock);
+        terminal.registrarCircuitoMaritimo(circuitosMaritimos.get(0));
     }
 
     @Test
@@ -74,15 +85,87 @@ public class TerminalTest {
     }
 
     @Test
-    public void testGettersYRegistrar() {
+    public void testGetters() {
         assertEquals("terminalUno", terminal.getNombre());
         assertEquals(1, terminal.getLineasNavierasRegistradas().size());
         assertEquals(1, terminal.getConsigneesRegistrados().size());
         assertEquals(1, terminal.getShippersRegistrados().size());
         assertTrue(terminal.estaElCamionRegistrado(camionMock));
         assertTrue(terminal.estaElChoferRegistrado(choferMock("Juan")));
-//    	assertEquals(circuito, terminal.getMejorCircuito(terminalDestino));
     }
+
+    @Test
+    public void testSetMejorCircuitoStrategy() {
+        Terminal terminalMock = mock(Terminal.class);
+        MejorCircuitoStrategy mejorCircuitoStrategy = mock(MejorCircuitoStrategy.class);
+
+        terminalMock.setMejorCircuitoStrategy(mejorCircuitoStrategy);
+        verify(terminalMock).setMejorCircuitoStrategy(mejorCircuitoStrategy);
+    }
+
+    @Test
+    public void testRegistrarCircuitoMaritimo() {
+        Terminal terminalMock = mock(Terminal.class);
+        CircuitoMaritimo circuitoMaritimo = mock(CircuitoMaritimo.class);
+
+        terminalMock.registrarCircuitoMaritimo(circuitoMaritimo);
+        verify(terminalMock).registrarCircuitoMaritimo(circuitoMaritimo);
+    }
+
+    @Test
+    public void testSetChofer() {
+        Terminal terminalMock = mock(Terminal.class);
+        Chofer chofer = mock(Chofer.class);
+
+        terminalMock.registrarChofer(chofer);
+        verify(terminalMock).registrarChofer(chofer);
+    }
+
+    @Test
+    public void testRegistrarCamion() {
+        Terminal terminalMock = mock(Terminal.class);
+        Camion camion = mock(Camion.class);
+
+        terminalMock.registrarCamion(camion);
+        verify(terminalMock).registrarCamion(camion);
+    }
+
+    @Test
+    public void testRegistrarLineaNaviera() {
+        Terminal terminalMock = mock(Terminal.class);
+        Naviera naviera = mock(Naviera.class);
+
+        terminalMock.registrarLineaNaviera(naviera);
+        verify(terminalMock).registrarLineaNaviera(naviera);
+    }
+
+    @Test
+    public void testRegistrarShipper() {
+        Terminal terminalMock = mock(Terminal.class);
+        Cliente shipper = mock(Cliente.class);
+
+        terminalMock.registrarShipper(shipper);
+        verify(terminalMock).registrarShipper(shipper);
+    }
+
+    @Test
+    public void testRegistrarConsignee() {
+        Terminal terminalMock = mock(Terminal.class);
+        Cliente consignee = mock(Cliente.class);
+
+        terminalMock.registrarConsignee(consignee);
+        verify(terminalMock).registrarConsignee(consignee);
+    }
+
+    @Test
+    public void getMejorCircuitoMaritimo() {
+        assertEquals(circuitoMaritimoADevolver, terminal.getMejorCircuito(terminalDestino));
+    }
+
+    /*@Test
+    public void testGetTiempoDeViaje() {
+        assertEquals(Duration.ofDays(1), terminal.cuantoTardaNavieraEnIrA(terminalDestino, naviera));
+    }*/
 
     private OrdenDeExportacion ordenDeExportacionMock(Viaje viaje, double costo) {
         OrdenDeExportacion ordenDeExportacion = mock(OrdenDeExportacion.class);
@@ -118,7 +201,18 @@ public class TerminalTest {
     }
 
     private Naviera lineaNavieraMock() {
-        return mock(Naviera.class);
+        Naviera naviera = mock(Naviera.class);
+        when(naviera.getTiempoDeViaje(terminal, terminalDestino)).thenReturn(Duration.ofDays(1));
+        return naviera;
+    }
+
+
+    private MejorCircuitoStrategy mejorCircuitoStrategyMock() {
+        MejorCircuitoStrategy mejorCircuitoStrategy = mock(MejorCircuitoStrategy.class);
+        when(mejorCircuitoStrategy.getMejorCircuitoPara(terminal, terminalDestino, circuitosMaritimos)).thenReturn(
+                circuitoMaritimoADevolver);
+        return mejorCircuitoStrategy;
+
     }
 
 }
