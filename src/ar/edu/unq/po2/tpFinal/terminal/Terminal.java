@@ -141,6 +141,12 @@ public class Terminal {
         return this.mejorCircuitoStrategy.getMejorCircuitoPara(this, destino, this.circuitosMaritimos);
     }
 
+    public LocalDateTime fechaDeLLegadaDelCircuitoA(
+            CircuitoMaritimo circuitoMaritimo, Terminal destino, LocalDateTime fechaDeSalida
+    ) {
+        return fechaDeSalida.plus(circuitoMaritimo.tiempoEntreTramos(this, destino));
+    }
+
     public Duration cuantoTardaNavieraEnIrA(Terminal destino, Naviera naviera) {
         System.out.println("Terminal: " + this.getNombre() + " - Naviera: " + naviera.toString());
         return naviera.getTiempoDeViaje(this, destino);
