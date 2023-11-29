@@ -1,6 +1,4 @@
-package ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro;
-
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
+package ar.edu.unq.po2.tpFinal.busquedaMaritima;
 
 import java.time.LocalDateTime;
 

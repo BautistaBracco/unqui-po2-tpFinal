@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.time.Duration;
 import java.time.LocalDateTime;
 
-import static junit.framework.TestCase.assertEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 public class RutaMaritimaTest {
@@ -28,6 +28,5 @@ public class RutaMaritimaTest {
         assertEquals(terminal, rutaMaritima.getPuertoDestino());
         assertEquals(ahora, rutaMaritima.getFechaDeSalida());
         assertEquals(ahora.plus(Duration.ofDays(1)), rutaMaritima.getFechaDeLlegada());
-
     }
 }

@@ -1,14 +1,15 @@
 package ar.edu.unq.po2.tpFinal;
 
 import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro.OperadorLogico;
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro.OperadorLogicoAND;
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro.Filtro;
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro.OperadorLogicoOR;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.OperadorLogicoAND;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.OperadorLogicoOR;
 import org.junit.Before;
 import org.junit.Test;
 
-import static junit.framework.TestCase.*;
+import static junit.framework.TestCase.assertFalse;
+import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 

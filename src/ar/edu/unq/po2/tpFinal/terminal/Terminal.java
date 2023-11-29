@@ -1,5 +1,7 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.naviera.Naviera;
@@ -148,7 +150,6 @@ public class Terminal {
     }
 
     public Duration cuantoTardaNavieraEnIrA(Terminal destino, Naviera naviera) {
-        System.out.println("Terminal: " + this.getNombre() + " - Naviera: " + naviera.toString());
         return naviera.getTiempoDeViaje(this, destino);
     }
 
@@ -159,5 +160,9 @@ public class Terminal {
                 .min(LocalDateTime::compareTo)
                 .get();
 
+    }
+
+    public List<RutaMaritima> busquedaMaritima(Filtro filtro, List<RutaMaritima> rutasMaritimas) {
+        return rutasMaritimas.stream().filter(ruta -> filtro.aplicar(ruta)).toList();
     }
 }

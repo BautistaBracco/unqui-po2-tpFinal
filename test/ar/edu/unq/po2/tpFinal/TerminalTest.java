@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import org.junit.Before;
 import org.junit.Test;
@@ -31,24 +33,26 @@ public class TerminalTest {
     private Viaje viajeMock;
     private OrdenDeExportacion ordenDeExportacionMock;
     private OrdenDeImportacion ordenDeImportacionMock;
-    private MejorCircuitoStrategy mejorCircuitoStrategy;
     private List<CircuitoMaritimo> circuitosMaritimos;
     private CircuitoMaritimo circuitoMaritimoADevolver;
+    private LocalDateTime ahora;
+    private RutaMaritima rutaMaritima;
 
     @Before
     public void setUp() {
+        terminal = new Terminal("terminalUno");
+        terminalDestino = new Terminal("terminalDos");
+        ahora = LocalDateTime.now();
         camionMock = mock(Camion.class);
+        rutaMaritima = mock(RutaMaritima.class);
         viajeMock = viajeMock();
         ordenDeExportacionMock = ordenDeExportacionMock(viajeMock, 500.00);
         ordenDeImportacionMock = ordenDeImportacionMock(viajeMock, 700.00);
-        terminalDestino = new Terminal("terminalDos");
-        mejorCircuitoStrategy = mejorCircuitoStrategyMock();
-        circuitoMaritimoADevolver = mock(CircuitoMaritimo.class);
+        circuitoMaritimoADevolver = circuitoMaritimoMock();
         circuitosMaritimos = List.of(circuitoMaritimoADevolver);
         naviera = lineaNavieraMock();
 
 
-        terminal = new Terminal("terminalUno");
         terminal.registrarOrdenDeExportacion(ordenDeExportacionMock);
         terminal.registrarOrdenDeImportacion(ordenDeImportacionMock);
 
@@ -65,7 +69,7 @@ public class TerminalTest {
     @Test
     public void testTerminalCostoDeServicios() {
         assertEquals(500.00, terminal.costoDeServiciosDeOrdenExportacion(ordenDeExportacionMock), 0.01);
-        assertEquals(700.00, terminal.costoDeServiciosDeOrdenImportacion(ordenDeImportacionMock), 0.01);
+        assertEquals(800.00, terminal.costoDeServiciosDeOrdenImportacion(ordenDeImportacionMock), 0.01);
     }
 
     @Test
@@ -162,10 +166,29 @@ public class TerminalTest {
         assertEquals(circuitoMaritimoADevolver, terminal.getMejorCircuito(terminalDestino));
     }
 
-    /*@Test
+    @Test
     public void testGetTiempoDeViaje() {
         assertEquals(Duration.ofDays(1), terminal.cuantoTardaNavieraEnIrA(terminalDestino, naviera));
-    }*/
+    }
+
+    @Test
+    public void testGetFechaDeProximoViaje() {
+        assertEquals(ahora.plus(Duration.ofDays(1)), terminal.fechaDeProximoBuqueA(terminalDestino, ahora));
+
+    }
+
+    @Test
+    public void fechaLlegadaCircuito() {
+        assertEquals(ahora.plus(Duration.ofDays(1)),
+                terminal.fechaDeLLegadaDelCircuitoA(circuitoMaritimoADevolver, terminalDestino, ahora));
+    }
+
+    @Test
+    public void busquedaMaritimaTest() {
+        Filtro filtro = filtroMock();
+        List<RutaMaritima> rutasMaritimas = List.of(rutaMaritima);
+        assertTrue(terminal.busquedaMaritima(filtro, rutasMaritimas).contains(rutaMaritima));
+    }
 
     private OrdenDeExportacion ordenDeExportacionMock(Viaje viaje, double costo) {
         OrdenDeExportacion ordenDeExportacion = mock(OrdenDeExportacion.class);
@@ -203,6 +226,9 @@ public class TerminalTest {
     private Naviera lineaNavieraMock() {
         Naviera naviera = mock(Naviera.class);
         when(naviera.getTiempoDeViaje(terminal, terminalDestino)).thenReturn(Duration.ofDays(1));
+        when(naviera.getFechaDeProximoViaje(terminal,
+                terminalDestino,
+                this.ahora)).thenReturn(this.ahora.plus(Duration.ofDays(1)));
         return naviera;
     }
 
@@ -212,7 +238,18 @@ public class TerminalTest {
         when(mejorCircuitoStrategy.getMejorCircuitoPara(terminal, terminalDestino, circuitosMaritimos)).thenReturn(
                 circuitoMaritimoADevolver);
         return mejorCircuitoStrategy;
+    }
 
+    private CircuitoMaritimo circuitoMaritimoMock() {
+        CircuitoMaritimo circuitoMaritimo = mock(CircuitoMaritimo.class);
+        when(circuitoMaritimo.tiempoEntreTramos(terminal, terminalDestino)).thenReturn(Duration.ofDays(1));
+        return circuitoMaritimo;
+    }
+
+    private Filtro filtroMock() {
+        Filtro filtro = mock(Filtro.class);
+        when(filtro.aplicar(this.rutaMaritima)).thenReturn(true);
+        return filtro;
     }
 
 }

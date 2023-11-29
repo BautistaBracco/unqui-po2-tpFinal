@@ -1,8 +1,7 @@
 package ar.edu.unq.po2.tpFinal;
 
 
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro.*;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.*;
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 import org.junit.Before;
 import org.junit.Test;

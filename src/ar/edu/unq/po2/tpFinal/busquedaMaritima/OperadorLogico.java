@@ -1,7 +1,5 @@
-package ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro;
+package ar.edu.unq.po2.tpFinal.busquedaMaritima;
 
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
-import ar.edu.unq.po2.tpFinal.busquedaMaritima.filtro.Filtro;
 
 public abstract class OperadorLogico implements Filtro {
 
