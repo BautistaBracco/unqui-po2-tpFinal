@@ -1,5 +1,8 @@
 package ar.edu.unq.po2.tpFinal.terminal;
 
+import ar.edu.unq.po2.tpFinal.buque.Buque;
+import ar.edu.unq.po2.tpFinal.buque.Departing;
+import ar.edu.unq.po2.tpFinal.buque.Working;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.naviera.Naviera;
@@ -25,6 +28,8 @@ public class Terminal {
     private List<OrdenDeExportacion> ordenesDeExportacion;
     private List<OrdenDeImportacion> ordenesDeImportacion;
     private List<CircuitoMaritimo> circuitosMaritimos;
+    private List<Buque> buquesAEsperaDeOrdenDeparting;
+    private List<Buque> buquesAEsperaDeOrdenWorking;
 
     public Terminal(String nombre) {
         this.nombre = nombre;
@@ -37,6 +42,8 @@ public class Terminal {
         this.ordenesDeExportacion = new ArrayList<>();
         this.ordenesDeImportacion = new ArrayList<>();
         this.circuitosMaritimos = new ArrayList<>();
+        this.buquesAEsperaDeOrdenDeparting = new ArrayList<>();
+        this.buquesAEsperaDeOrdenWorking = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -153,4 +160,29 @@ public class Terminal {
                 .get();
 
     }
+    
+    public void registrarBuqueAEsperaDeDeparting(Buque buque) {
+    	this.buquesAEsperaDeOrdenDeparting.add(buque);
+    }
+    
+    public void registrarBuqueAEsperaDeWorking(Buque buque) {
+    	this.buquesAEsperaDeOrdenWorking.add(buque);
+    }
+    
+    public void darOrdenDeWorkingAlBuque(Buque buque) {
+    	if (this.buquesAEsperaDeOrdenWorking.stream().anyMatch(c -> c.equals(buque))) {
+    		buque.setEstado(new Working());
+    		this.buquesAEsperaDeOrdenWorking.remove(buque);
+    	}
+  
+    }
+    
+    public void darOrdenDeDepartingAlBuque(Buque buque) {
+    	if (this.buquesAEsperaDeOrdenDeparting.stream().anyMatch(c -> c.equals(buque))) {
+    		buque.setEstado(new Departing());
+    		this.buquesAEsperaDeOrdenDeparting.remove(buque);
+    	}
+    	
+    }
+    
 }
