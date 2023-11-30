@@ -6,7 +6,7 @@ out/
 *.iws
 *.ipr
 .idea/
-
+htmlReport/
 
 ### Eclipse ###
 .apt_generated

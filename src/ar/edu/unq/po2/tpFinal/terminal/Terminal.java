@@ -3,6 +3,8 @@ package ar.edu.unq.po2.tpFinal.terminal;
 import ar.edu.unq.po2.tpFinal.buque.Buque;
 import ar.edu.unq.po2.tpFinal.buque.Departing;
 import ar.edu.unq.po2.tpFinal.buque.Working;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
+import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.naviera.Naviera;
@@ -145,7 +147,13 @@ public class Terminal {
     }
 
     public CircuitoMaritimo getMejorCircuito(Terminal destino) {
-        return mejorCircuitoStrategy.getMejorCircuitoPara(this, destino, this.circuitosMaritimos);
+        return this.mejorCircuitoStrategy.getMejorCircuitoPara(this, destino, this.circuitosMaritimos);
+    }
+
+    public LocalDateTime fechaDeLLegadaDelCircuitoA(
+            CircuitoMaritimo circuitoMaritimo, Terminal destino, LocalDateTime fechaDeSalida
+    ) {
+        return fechaDeSalida.plus(circuitoMaritimo.tiempoEntreTramos(this, destino));
     }
 
     public Duration cuantoTardaNavieraEnIrA(Terminal destino, Naviera naviera) {
@@ -183,6 +191,10 @@ public class Terminal {
     		this.buquesAEsperaDeOrdenDeparting.remove(buque);
     	}
     	
+    }
+    
+    public List<RutaMaritima> busquedaMaritima(Filtro filtro, List<RutaMaritima> rutasMaritimas) {
+        return rutasMaritimas.stream().filter(ruta -> filtro.aplicar(ruta)).toList();
     }
     
 }

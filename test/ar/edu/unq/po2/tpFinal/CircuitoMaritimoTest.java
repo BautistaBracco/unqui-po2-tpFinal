@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.time.Duration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.*;
 
 
@@ -75,8 +76,10 @@ public class CircuitoMaritimoTest {
 
     @Test
     public void existeTerminal() {
-        assertEquals(true, this.circuitoMaritimo.existeTerminal(this.terminalBuenosAires));
+        assertTrue(this.circuitoMaritimo.existeTerminal(this.terminalBuenosAires));
+        assertTrue(this.circuitoMaritimo.existeTerminal(this.terminalMontevideo));
     }
+
 
     @Test
     public void agregarTramo() {

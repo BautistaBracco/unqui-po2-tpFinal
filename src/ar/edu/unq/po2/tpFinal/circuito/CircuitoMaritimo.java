@@ -29,19 +29,14 @@ public class CircuitoMaritimo {
     }
 
 
-    // si falla es porque hay al menos un tramo que no está conectado con ninguno
+    // PRECOND: Existe terminal de origen y destino
     private List<Tramo> tramosEntre(Terminal origen, Terminal destino) {
-
         List<Tramo> tramos = new ArrayList<>();
-        if (!this.existeTerminal(origen) || !this.existeTerminal(destino)) {
-            System.out.println("No existe puerto");
-            return tramos;
-        }
-
         Tramo tramoActual = this.getTramoConOrigen(origen);
+
         tramos.add(tramoActual);
 
-        // verifico que el si el primer tramo contiene el destino
+        // verifico si el primer tramo contiene el destino
         if (Objects.equals(tramoActual.getPuertoDestino().getNombre(), destino.getNombre())) {
             return tramos;
         }
@@ -68,20 +63,19 @@ public class CircuitoMaritimo {
     }
 
     public Duration tiempoEntreTramos(Terminal origen, Terminal destino) {
+
         return this
                 .tramosEntre(origen, destino)
                 .stream()
-                .reduce(Duration.ZERO,
-                        (tiempo, tramo) -> tiempo.plus(tramo.getTiempo()),
-                        (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
+                .map(tramo -> tramo.getTiempo())
+                .reduce(Duration.ZERO, (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
     }
 
     public Duration tiempoTotalDelCircuito() {
         return this.tramos
                 .stream()
-                .reduce(Duration.ZERO,
-                        (tiempo, tramo) -> tiempo.plus(tramo.getTiempo()),
-                        (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
+                .map(tramo -> tramo.getTiempo())
+                .reduce(Duration.ZERO, (tiempo1, tiempo2) -> tiempo1.plus(tiempo2));
     }
 
     private Tramo getTramoConOrigen(Terminal origen) {
