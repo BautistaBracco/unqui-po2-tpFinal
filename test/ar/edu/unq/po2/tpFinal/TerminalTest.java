@@ -16,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
+import ar.edu.unq.po2.tpFinal.cliente.Turno;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
 import ar.edu.unq.po2.tpFinal.naviera.Naviera;
@@ -65,6 +66,9 @@ public class TerminalTest {
 
         terminal.registrarLineaNaviera(lineaNavieraMock());
         terminal.registrarCircuitoMaritimo(circuitosMaritimos.get(0));
+        
+        Turno turnoMock = mock(Turno.class);
+        terminal.registrarTurnoDeExportacion(turnoMock);
     }
 
     @Test
@@ -203,7 +207,8 @@ public class TerminalTest {
     	when(ordenDeImportacionMock.getCliente()).thenReturn(cliente);
     	when(ordenDeExportacionMock.getCliente()).thenReturn(cliente);
     	terminal.informarConsigneesDelViaje(viajeMock);
-    	terminal.informarShippersDelViaje(viajeMock);
+    	terminal.informarCostoAConsigneesDelViaje(viajeMock);
+    	terminal.informarCostoAShippersDelViaje(viajeMock);
     }
 
     private OrdenDeExportacion ordenDeExportacionMock(Viaje viaje, double costo) {

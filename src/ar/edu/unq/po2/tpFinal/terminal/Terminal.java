@@ -7,6 +7,7 @@ import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
 import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
+import ar.edu.unq.po2.tpFinal.cliente.Turno;
 import ar.edu.unq.po2.tpFinal.naviera.Naviera;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
@@ -22,30 +23,36 @@ import java.util.List;
 public class Terminal {
     private String nombre;
     private MejorCircuitoStrategy mejorCircuitoStrategy;
+    private List<Naviera> lineasNavierasRegistradas;
+    private List<CircuitoMaritimo> circuitosMaritimos;
+    
     private List<Camion> camionesRegistrados;
     private List<Chofer> choferesRegistrados;
-    private List<Naviera> lineasNavierasRegistradas;
     private List<Cliente> shippersRegistrados;
     private List<Cliente> consigneesRegistrados;
     private List<OrdenDeExportacion> ordenesDeExportacion;
     private List<OrdenDeImportacion> ordenesDeImportacion;
-    private List<CircuitoMaritimo> circuitosMaritimos;
     private List<Buque> buquesAEsperaDeOrdenDeparting;
     private List<Buque> buquesAEsperaDeOrdenWorking;
+    private List<Turno> turnosDeExportacion;
+    private List<Turno> turnosDeImportacion;
 
     public Terminal(String nombre) {
         this.nombre = nombre;
         this.mejorCircuitoStrategy = new MenorTiempoStrategy();
+        this.lineasNavierasRegistradas = new ArrayList<>();
+        this.circuitosMaritimos = new ArrayList<>();
+        
         this.camionesRegistrados = new ArrayList<>();
         this.choferesRegistrados = new ArrayList<>();
-        this.lineasNavierasRegistradas = new ArrayList<>();
         this.shippersRegistrados = new ArrayList<>();
         this.consigneesRegistrados = new ArrayList<>();
         this.ordenesDeExportacion = new ArrayList<>();
         this.ordenesDeImportacion = new ArrayList<>();
-        this.circuitosMaritimos = new ArrayList<>();
         this.buquesAEsperaDeOrdenDeparting = new ArrayList<>();
         this.buquesAEsperaDeOrdenWorking = new ArrayList<>();
+        this.turnosDeExportacion = new ArrayList<>();
+        this.turnosDeImportacion = new ArrayList<>();
     }
 
     public String getNombre() {
@@ -134,15 +141,19 @@ public class Terminal {
             System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
         }
     }
+    
+    public void informarCostoAConsigneesDelViaje(Viaje viaje) {
+        List<OrdenDeImportacion> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje);
+        for (OrdenDeImportacion orden : consigneesDelViaje) {
+            System.out.println("Estimado " + orden.getCliente().getNombre() + " el monto a pagar por servicios de container es de: " + orden.costoDeServicios());
+        }
+    }
 
-    public void informarShippersDelViaje(Viaje viaje) {
-
-        List<String> shippersDelViaje = ordenesDeImportacionDelViaje(viaje)
-                .stream()
-                .map(orden -> orden.getCliente().getNombre())
-                .toList();
-        for (String nombreCliente : shippersDelViaje) {
-            System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+    public void informarCostoAShippersDelViaje(Viaje viaje) {
+        List<OrdenDeExportacion> shippersDelViaje = ordenesDeExportacionDelViaje(viaje);
+        for (OrdenDeExportacion orden : shippersDelViaje) {
+            System.out.println("Estimado " + orden.getCliente().getNombre() + ", el buque con su carga acaba de zarpar."
+            		+ " El monto a pagar por servicios de container es de: " + orden.costoDeServicios());
         }
     }
 
@@ -196,5 +207,8 @@ public class Terminal {
     public List<RutaMaritima> busquedaMaritima(Filtro filtro, List<RutaMaritima> rutasMaritimas) {
         return rutasMaritimas.stream().filter(ruta -> filtro.aplicar(ruta)).toList();
     }
-    
+ 
+    public void registrarTurnoDeExportacion(Turno turno) {
+    	this.turnosDeExportacion.add(turno);
+    }
 }

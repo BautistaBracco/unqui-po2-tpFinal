@@ -15,7 +15,6 @@ import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.container.Container;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Camion;
 import ar.edu.unq.po2.tpFinal.empresaTransportista.Chofer;
-import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
 import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 import ar.edu.unq.po2.tpFinal.viaje.Viaje;
@@ -34,23 +33,24 @@ public class ClienteTest {
 		Viaje viaje = mock(Viaje.class);
 		LocalDateTime fechaSalida = LocalDateTime.now();
         LocalDateTime fechaLlegada = fechaSalida.plusHours(2);
+        LocalDateTime fechaAsignada = LocalDateTime.of(2010, 10, 10, 10, 10);
         when(viaje.getFechaDeSalida()).thenReturn(fechaSalida);
         when(viaje.getFechaDeLlegada(terminalDestino)).thenReturn(fechaLlegada);
 		Container container = mock(Container.class);
 		Camion camion = mock(Camion.class);
 		Chofer chofer = mock(Chofer.class);
+		when(terminalGestionada.estaElCamionRegistrado(camion)).thenReturn(true);
+		when(terminalGestionada.estaElChoferRegistrado(chofer)).thenReturn(true);
 		
 		cliente.realizarPedidoDeImportacion(terminalGestionada, terminalDestino, viaje, container, camion, chofer);
 		
-		cliente.realizarPedidoDeExportacion(terminalGestionada, terminalDestino, viaje, container, camion, chofer);
+		cliente.realizarPedidoDeExportacion(terminalGestionada, camion, chofer, fechaAsignada);
+		
+		cliente.llevarCargaALaTerminal(terminalGestionada, terminalDestino, fechaAsignada, viaje, container, camion, chofer);
 	}
 	
 	@Test
 	public void testClienteRegistroDeOrdenes() {
-		
-		verify(terminalGestionada).registrarOrdenDeExportacion(
-                ArgumentMatchers.any(OrdenDeExportacion.class)
-        );
 		
 		verify(terminalGestionada).registrarOrdenDeImportacion(
                 ArgumentMatchers.any(OrdenDeImportacion.class)
