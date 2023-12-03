@@ -61,6 +61,16 @@ public class ServicioContainerTest {
 		assertEquals(500, servicioContainerPesado.costoDelServicio(), 0.01);
 		assertEquals(10, servicioContainerLavadoReefer.costoDelServicio(), 0.01);
 		assertEquals(5, servicioContainerLavadoSeco.costoDelServicio(), 0.01);
+		assertEquals(1280, servicioContainerElectricidad.costoDelServicio(), 0.01);
+		assertEquals(0, servicioContainerAlmacenamiento.costoDelServicio(), 0.01);
+	}
+	
+	@Test
+	public void testCalculoDeHorasYDiasServicios() {
+		LocalDateTime fechaHoraInicial = LocalDateTime.of(2010, 11, 15, 16, 0);
+		LocalDateTime fechaHoraFinal = LocalDateTime.of(2010, 12, 15, 16, 0);
+		assertEquals(0, servicioContainerElectricidad.cantidadDeDiasExcedentes(fechaHoraFinal, fechaHoraInicial));
+		assertEquals(16, servicioContainerElectricidad.cantidadDeHorasExcedentes(fechaHoraFinal, fechaHoraInicial));
 	}
 
 }
