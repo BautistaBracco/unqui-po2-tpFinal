@@ -8,6 +8,7 @@ import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
 import ar.edu.unq.po2.tpFinal.cliente.Cliente;
 import ar.edu.unq.po2.tpFinal.cliente.Turno;
+import ar.edu.unq.po2.tpFinal.empresaTransportista.EmpresaTransportista;
 import ar.edu.unq.po2.tpFinal.naviera.Naviera;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeExportacion;
 import ar.edu.unq.po2.tpFinal.orden.OrdenDeImportacion;
@@ -25,7 +26,7 @@ public class Terminal {
     private MejorCircuitoStrategy mejorCircuitoStrategy;
     private List<Naviera> lineasNavierasRegistradas;
     private List<CircuitoMaritimo> circuitosMaritimos;
-    
+    private ArrayList<EmpresaTransportista> empresasTransportistas;
     private List<Camion> camionesRegistrados;
     private List<Chofer> choferesRegistrados;
     private List<Cliente> shippersRegistrados;
@@ -42,7 +43,7 @@ public class Terminal {
         this.mejorCircuitoStrategy = new MenorTiempoStrategy();
         this.lineasNavierasRegistradas = new ArrayList<>();
         this.circuitosMaritimos = new ArrayList<>();
-        
+        this.empresasTransportistas = new ArrayList<>();
         this.camionesRegistrados = new ArrayList<>();
         this.choferesRegistrados = new ArrayList<>();
         this.shippersRegistrados = new ArrayList<>();
@@ -81,6 +82,10 @@ public class Terminal {
 
     public void registrarConsignee(Cliente consignee) {
         this.consigneesRegistrados.add(consignee);
+    }
+
+    public void registrarEmpresaTransportista(EmpresaTransportista empresaTransportista) {
+        this.empresasTransportistas.add(empresaTransportista);
     }
 
     public void registrarCamion(Camion camion) {
@@ -141,19 +146,25 @@ public class Terminal {
             System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
         }
     }
-    
+
     public void informarCostoAConsigneesDelViaje(Viaje viaje) {
         List<OrdenDeImportacion> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje);
         for (OrdenDeImportacion orden : consigneesDelViaje) {
-            System.out.println("Estimado " + orden.getCliente().getNombre() + " el monto a pagar por servicios de container es de: " + orden.costoDeServicios());
+            System.out.println("Estimado " +
+                               orden.getCliente().getNombre() +
+                               " el monto a pagar por servicios de container es de: " +
+                               orden.costoDeServicios());
         }
     }
 
     public void informarCostoAShippersDelViaje(Viaje viaje) {
         List<OrdenDeExportacion> shippersDelViaje = ordenesDeExportacionDelViaje(viaje);
         for (OrdenDeExportacion orden : shippersDelViaje) {
-            System.out.println("Estimado " + orden.getCliente().getNombre() + ", el buque con su carga acaba de zarpar."
-            		+ " El monto a pagar por servicios de container es de: " + orden.costoDeServicios());
+            System.out.println("Estimado " +
+                               orden.getCliente().getNombre() +
+                               ", el buque con su carga acaba de zarpar." +
+                               " El monto a pagar por servicios de container es de: " +
+                               orden.costoDeServicios());
         }
     }
 
@@ -179,36 +190,36 @@ public class Terminal {
                 .get();
 
     }
-    
+
     public void registrarBuqueAEsperaDeDeparting(Buque buque) {
-    	this.buquesAEsperaDeOrdenDeparting.add(buque);
+        this.buquesAEsperaDeOrdenDeparting.add(buque);
     }
-    
+
     public void registrarBuqueAEsperaDeWorking(Buque buque) {
-    	this.buquesAEsperaDeOrdenWorking.add(buque);
+        this.buquesAEsperaDeOrdenWorking.add(buque);
     }
-    
+
     public void darOrdenDeWorkingAlBuque(Buque buque) {
-    	if (this.buquesAEsperaDeOrdenWorking.stream().anyMatch(c -> c.equals(buque))) {
-    		buque.setEstado(new Working());
-    		this.buquesAEsperaDeOrdenWorking.remove(buque);
-    	}
-  
+        if (this.buquesAEsperaDeOrdenWorking.stream().anyMatch(c -> c.equals(buque))) {
+            buque.setEstado(new Working());
+            this.buquesAEsperaDeOrdenWorking.remove(buque);
+        }
+
     }
-    
+
     public void darOrdenDeDepartingAlBuque(Buque buque) {
-    	if (this.buquesAEsperaDeOrdenDeparting.stream().anyMatch(c -> c.equals(buque))) {
-    		buque.setEstado(new Departing());
-    		this.buquesAEsperaDeOrdenDeparting.remove(buque);
-    	}
-    	
+        if (this.buquesAEsperaDeOrdenDeparting.stream().anyMatch(c -> c.equals(buque))) {
+            buque.setEstado(new Departing());
+            this.buquesAEsperaDeOrdenDeparting.remove(buque);
+        }
+
     }
-    
+
     public List<RutaMaritima> busquedaMaritima(Filtro filtro, List<RutaMaritima> rutasMaritimas) {
         return rutasMaritimas.stream().filter(ruta -> filtro.aplicar(ruta)).toList();
     }
- 
+
     public void registrarTurnoDeExportacion(Turno turno) {
-    	this.turnosDeExportacion.add(turno);
+        this.turnosDeExportacion.add(turno);
     }
 }

@@ -12,6 +12,7 @@ import ar.edu.unq.po2.tpFinal.buque.Buque;
 import ar.edu.unq.po2.tpFinal.busquedaMaritima.Filtro;
 import ar.edu.unq.po2.tpFinal.busquedaMaritima.RutaMaritima;
 import ar.edu.unq.po2.tpFinal.circuito.CircuitoMaritimo;
+import ar.edu.unq.po2.tpFinal.empresaTransportista.EmpresaTransportista;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +31,7 @@ public class TerminalTest {
 
     private Terminal terminal;
     private Terminal terminalDestino;
+    private EmpresaTransportista empresaTransportista;
     private Camion camionMock;
     private Naviera naviera;
     private Viaje viajeMock;
@@ -46,6 +48,7 @@ public class TerminalTest {
         terminalDestino = new Terminal("terminalDos");
         ahora = LocalDateTime.now();
         camionMock = mock(Camion.class);
+        empresaTransportista = mock(EmpresaTransportista.class);
         rutaMaritima = mock(RutaMaritima.class);
         viajeMock = viajeMock();
         ordenDeExportacionMock = ordenDeExportacionMock(viajeMock, 500.00);
@@ -60,13 +63,14 @@ public class TerminalTest {
 
         terminal.registrarChofer(choferMock("Juan"));
         terminal.registrarCamion(camionMock);
+        terminal.registrarEmpresaTransportista(empresaTransportista);
 
         terminal.registrarConsignee(clienteMock());
         terminal.registrarShipper(clienteMock());
 
         terminal.registrarLineaNaviera(lineaNavieraMock());
         terminal.registrarCircuitoMaritimo(circuitosMaritimos.get(0));
-        
+
         Turno turnoMock = mock(Turno.class);
         terminal.registrarTurnoDeExportacion(turnoMock);
     }
@@ -105,7 +109,7 @@ public class TerminalTest {
 
     @Test
     public void testSetMejorCircuitoStrategy() {
-    	MejorCircuitoStrategy mejorCircuitoStrategy = mock(MejorCircuitoStrategy.class);
+        MejorCircuitoStrategy mejorCircuitoStrategy = mock(MejorCircuitoStrategy.class);
         Terminal terminalSpy = spy(terminal);
         terminalSpy.setMejorCircuitoStrategy(mejorCircuitoStrategy);
         verify(terminalSpy, times(1)).setMejorCircuitoStrategy(mejorCircuitoStrategy);
@@ -118,6 +122,15 @@ public class TerminalTest {
 
         terminalMock.registrarCircuitoMaritimo(circuitoMaritimo);
         verify(terminalMock).registrarCircuitoMaritimo(circuitoMaritimo);
+    }
+
+    @Test
+    public void testSetEmpresaTransportista() {
+        Terminal terminalMock = mock(Terminal.class);
+        EmpresaTransportista empresaTransportista = mock(EmpresaTransportista.class);
+
+        terminalMock.registrarEmpresaTransportista(empresaTransportista);
+        verify(terminalMock).registrarEmpresaTransportista(empresaTransportista);
     }
 
     @Test
@@ -193,22 +206,22 @@ public class TerminalTest {
         List<RutaMaritima> rutasMaritimas = List.of(rutaMaritima);
         assertTrue(terminal.busquedaMaritima(filtro, rutasMaritimas).contains(rutaMaritima));
     }
-    
+
     @Test
     public void registrarEsperaDeOrdenBuqueYDarOrdenBuqueTest() {
-    	Buque buqueMock = mock(Buque.class);
-    	terminal.registrarBuqueAEsperaDeDeparting(buqueMock);
-    	terminal.darOrdenDeDepartingAlBuque(buqueMock);
-    
-    	terminal.registrarBuqueAEsperaDeWorking(buqueMock);
-    	terminal.darOrdenDeWorkingAlBuque(buqueMock);
-    	
-    	Cliente cliente = clienteMock();
-    	when(ordenDeImportacionMock.getCliente()).thenReturn(cliente);
-    	when(ordenDeExportacionMock.getCliente()).thenReturn(cliente);
-    	terminal.informarConsigneesDelViaje(viajeMock);
-    	terminal.informarCostoAConsigneesDelViaje(viajeMock);
-    	terminal.informarCostoAShippersDelViaje(viajeMock);
+        Buque buqueMock = mock(Buque.class);
+        terminal.registrarBuqueAEsperaDeDeparting(buqueMock);
+        terminal.darOrdenDeDepartingAlBuque(buqueMock);
+
+        terminal.registrarBuqueAEsperaDeWorking(buqueMock);
+        terminal.darOrdenDeWorkingAlBuque(buqueMock);
+
+        Cliente cliente = clienteMock();
+        when(ordenDeImportacionMock.getCliente()).thenReturn(cliente);
+        when(ordenDeExportacionMock.getCliente()).thenReturn(cliente);
+        terminal.informarConsigneesDelViaje(viajeMock);
+        terminal.informarCostoAConsigneesDelViaje(viajeMock);
+        terminal.informarCostoAShippersDelViaje(viajeMock);
     }
 
     private OrdenDeExportacion ordenDeExportacionMock(Viaje viaje, double costo) {
@@ -241,8 +254,8 @@ public class TerminalTest {
     }
 
     private Cliente clienteMock() {
-    	Cliente cliente = mock(Cliente.class);
-    	when(cliente.getNombre()).thenReturn("Juan");
+        Cliente cliente = mock(Cliente.class);
+        when(cliente.getNombre()).thenReturn("Juan");
         return cliente;
     }
 
