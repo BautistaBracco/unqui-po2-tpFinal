@@ -73,6 +73,7 @@ public class TerminalTest {
 
         Turno turnoMock = mock(Turno.class);
         terminal.registrarTurnoDeExportacion(turnoMock);
+        terminal.registrarTurnoDeImportacion(turnoMock);
     }
 
     @Test
@@ -219,7 +220,7 @@ public class TerminalTest {
         Cliente cliente = clienteMock();
         when(ordenDeImportacionMock.getCliente()).thenReturn(cliente);
         when(ordenDeExportacionMock.getCliente()).thenReturn(cliente);
-        terminal.informarConsigneesDelViaje(viajeMock);
+        terminal.informarConsigneesDelViaje(viajeMock, ahora);
         terminal.informarCostoAConsigneesDelViaje(viajeMock);
         terminal.informarCostoAShippersDelViaje(viajeMock);
     }

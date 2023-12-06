@@ -5,7 +5,9 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 
 public class Outbound implements EstadoBuque {
 	
-	public void notificarTerminalOrigen(Terminal terminal, Viaje viaje, Buque buque) {
-		terminal.informarCostoAShippersDelViaje(viaje);
+	public void notificarTerminalOrigen(Terminal terminal, Viaje viajeActual, Buque buque, Viaje viajeAnterior) {
+		terminal.informarCostoAShippersDelViaje(viajeActual);
+		terminal.informarCostoAConsigneesDelViaje(viajeAnterior);
 	}
+	
 }

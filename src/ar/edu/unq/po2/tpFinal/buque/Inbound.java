@@ -6,7 +6,7 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 public class Inbound implements EstadoBuque {
 	
 	public void notificarTerminalDestino(Terminal terminal, Viaje viaje, Buque buque) {
-		terminal.informarConsigneesDelViaje(viaje);
+		terminal.informarConsigneesDelViaje(viaje, viaje.getFechaDeLlegada(terminal));
 	}
 	
 }

@@ -137,14 +137,16 @@ public class Terminal {
         return ordenesDeExportacion.stream().filter(orden -> orden.getViaje().equals(viaje)).toList();
     }
 
-    public void informarConsigneesDelViaje(Viaje viaje) {
-        List<String> consigneesDelViaje = ordenesDeImportacionDelViaje(viaje)
+    public void informarConsigneesDelViaje(Viaje viaje, LocalDateTime fechaAsignada) {
+        List<Cliente> clientesDelViaje = ordenesDeImportacionDelViaje(viaje)
                 .stream()
-                .map(orden -> orden.getCliente().getNombre())
+                .map(orden -> orden.getCliente())
                 .toList();
-        for (String nombreCliente : consigneesDelViaje) {
-            System.out.println("Señor " + nombreCliente + " su carga ha arribado al puerto");
+        for (Cliente cliente : clientesDelViaje) {
+            System.out.println("Señor " + cliente.getNombre() + " su carga ha arribado al puerto");
+            cliente.informarATerminalCamionYChofer(this, cliente.getCamion(), cliente.getChofer(), fechaAsignada);
         }
+       
     }
 
     public void informarCostoAConsigneesDelViaje(Viaje viaje) {
@@ -221,5 +223,13 @@ public class Terminal {
 
     public void registrarTurnoDeExportacion(Turno turno) {
         this.turnosDeExportacion.add(turno);
+        this.registrarCamion(turno.getCamion());
+        this.registrarChofer(turno.getChofer());
+    }
+    
+    public void registrarTurnoDeImportacion(Turno turno) {
+    	this.turnosDeImportacion.add(turno);
+        this.registrarCamion(turno.getCamion());
+        this.registrarChofer(turno.getChofer());
     }
 }

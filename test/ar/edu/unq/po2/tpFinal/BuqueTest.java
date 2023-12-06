@@ -72,31 +72,31 @@ public class BuqueTest {
 		estadoDepartingSpy = spy(estadoDeparting);
 		
 		estadoDepartingSpy.notificarTerminalDestino(terminalMock, viajeMock, buque);
-		estadoDepartingSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque);
+		estadoDepartingSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
 		
 		estadoArrived = new Arrived();
 		estadoArrivedSpy = spy(estadoArrived);
 		
 		estadoArrivedSpy.notificarTerminalDestino(terminalMock, viajeMock, buque);
-		estadoArrivedSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque);
+		estadoArrivedSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
 		
 		estadoWorking = new Working();
 		estadoWorkingSpy = spy(estadoWorking);
 		
 		estadoWorkingSpy.notificarTerminalDestino(terminalMock, viajeMock, buque);
-		estadoWorkingSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque);
+		estadoWorkingSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
 		
 		estadoOutbound = new Outbound();
 		estadoOutboundSpy = spy(estadoOutbound);
 		
 		estadoOutboundSpy.notificarTerminalDestino(terminalMock, viajeMock, buque);
-		estadoOutboundSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque);
+		estadoOutboundSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
 		
 		estadoInbound = new Inbound();
 		estadoInboundSpy = spy(estadoInbound);
 		
 		estadoInboundSpy.notificarTerminalDestino(terminalMock, viajeMock, buque);
-		estadoInboundSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque);
+		estadoInboundSpy.notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
 		
 	}
 	
@@ -119,19 +119,19 @@ public class BuqueTest {
         verify(buqueMock, times(1)).notificarTerminal();
         
         verify(estadoOutboundSpy, times(1)).notificarTerminalDestino(terminalMock, viajeMock, buque);
-        verify(estadoOutboundSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque);
+        verify(estadoOutboundSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
         
         verify(estadoInboundSpy, times(1)).notificarTerminalDestino(terminalMock, viajeMock, buque);
-        verify(estadoInboundSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque);
+        verify(estadoInboundSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
         
         verify(estadoDepartingSpy, times(1)).notificarTerminalDestino(terminalMock, viajeMock, buque);
-        verify(estadoDepartingSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque);
+        verify(estadoDepartingSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
         
         verify(estadoWorkingSpy, times(1)).notificarTerminalDestino(terminalMock, viajeMock, buque);
-        verify(estadoWorkingSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque);
+        verify(estadoWorkingSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
         
         verify(estadoArrivedSpy, times(1)).notificarTerminalDestino(terminalMock, viajeMock, buque);
-        verify(estadoArrivedSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque);
+        verify(estadoArrivedSpy, times(1)).notificarTerminalOrigen(terminalMock, viajeMock, buque, viajeMock);
 	}
 	
 }

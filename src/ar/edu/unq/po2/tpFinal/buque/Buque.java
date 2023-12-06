@@ -9,14 +9,16 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 
 public class Buque {
 
-	private Terminal terminalOrigen; // pensarlo
-	private Terminal terminalDestino; // seria mejor un viaje, pero viaje no tiene terminal destino.
-	private Viaje viaje;
+	private Terminal terminalOrigen;
+	private Terminal terminalDestino;
+	private Viaje viajeAnterior;
+	private Viaje viajeActual;
 	private List<Container> containers;
 	private EstadoBuque estado;
 	
 	public Buque(Viaje viaje, Terminal terminalDestino) {
-		this.viaje = viaje;
+		this.viajeAnterior = null;
+		this.viajeActual = viaje;
 		this.terminalOrigen = viaje.getTerminalOrigen();
 		this.terminalDestino = terminalDestino;
 		this.containers = new ArrayList<>();
@@ -25,6 +27,14 @@ public class Buque {
 	public void setEstado(EstadoBuque estado) {
         this.estado = estado;
     }
+	
+	public void setViajeAnterior(Viaje viaje) {
+		this.viajeAnterior = viaje;
+	}
+	
+	public void setViaje(Viaje viaje) {
+		this.viajeActual = viaje;
+	}
 	
 	public void setDistanciaATerminalDestino(int distanciaATerminalDestino) {
 		if (distanciaATerminalDestino >= 0) {
@@ -39,14 +49,9 @@ public class Buque {
 
 	}
 	
-	public void setViaje(Viaje viaje) {
-		// Esta pensado para que el setter lo use la terminal cuando pase el buque a departing
-		this.viaje = viaje;
-	}
-	
 	public void notificarTerminal() {
-		this.estado.notificarTerminalOrigen(terminalOrigen, viaje, this);
-		this.estado.notificarTerminalDestino(terminalDestino, viaje, this);
+		this.estado.notificarTerminalOrigen(terminalOrigen, viajeActual, this, viajeAnterior);
+		this.estado.notificarTerminalDestino(terminalDestino, viajeActual, this);
 	}
 	
 	public List<Container> getContainers() {

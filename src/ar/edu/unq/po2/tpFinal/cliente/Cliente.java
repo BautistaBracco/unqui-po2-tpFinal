@@ -14,9 +14,28 @@ import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 public class Cliente {
     private String nombre;
     private Turno turno;
+    
+    private Camion camion;
+    private Chofer chofer;
 
     public Cliente(String nombre) {
         this.nombre = nombre;
+    }
+    
+    public void setCamion(Camion camion) {
+    	this.camion = camion;
+    }
+    
+    public Camion getCamion() {
+    	return this.camion;
+    }
+    
+    public Chofer getChofer() {
+    	return this.chofer;
+    }
+    
+    public void setChofer(Chofer chofer) {
+    	this.chofer = chofer;
     }
 
     public String getNombre() {
@@ -47,6 +66,19 @@ public class Cliente {
         }
 
     }
+    
+    public void informarATerminalCamionYChofer(Terminal terminal, Camion camion, Chofer chofer, LocalDateTime fechaAsignada) {
+    	turno = new Turno(fechaAsignada, this, chofer, camion);
+    	terminal.registrarTurnoDeImportacion(turno);
+    }
+    
+    public void irARecogerCargaALaTerminal(Terminal terminalGestionada, OrdenDeImportacion orden, Camion camion, Chofer chofer) {	
+    	if (terminalGestionada.estaElCamionRegistrado(camion) &&
+            terminalGestionada.estaElChoferRegistrado(chofer) &&
+            terminalGestionada.ordenesDeImportacionDelViaje(orden.getViaje()).contains(orden)) {
+    		camion.agregarContenedor(orden.getContainer());
+    	}
+    }
 
     public void realizarPedidoDeImportacion(
             Terminal terminalGestionada, Terminal terminalDestino, Viaje viaje, Container container, Camion camion,
@@ -55,7 +87,5 @@ public class Cliente {
         OrdenDeImportacion ordenDeImportacion = new OrdenDeImportacion(container, this, camion, chofer, viaje);
         terminalGestionada.registrarOrdenDeImportacion(ordenDeImportacion);
     }
-
-    // FALTA LA PARTE CUANDO LA TERMINAL AVISA QUE ESTA POR LLEGAR LA CARGA Y EL CONSIGNEE DEBE ENVIARLE EL CHOFER Y CAMION
 
 }

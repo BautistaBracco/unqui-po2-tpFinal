@@ -51,7 +51,6 @@ public class ClienteTest {
 	
 	@Test
 	public void testClienteRegistroDeOrdenes() {
-		
 		verify(terminalGestionada).registrarOrdenDeImportacion(
                 ArgumentMatchers.any(OrdenDeImportacion.class)
         );
@@ -59,7 +58,13 @@ public class ClienteTest {
 	
 	@Test
 	public void testClienteGetters() {
+		Camion camion = mock(Camion.class);
+		Chofer chofer = mock(Chofer.class);
+		cliente.setCamion(camion);
+		cliente.setChofer(chofer);
 		assertEquals("Juan", cliente.getNombre());
+		assertEquals(chofer, cliente.getChofer());
+		assertEquals(camion, cliente.getCamion());
 	}
 	
 }
