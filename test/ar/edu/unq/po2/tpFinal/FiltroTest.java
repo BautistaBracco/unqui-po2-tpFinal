@@ -56,7 +56,19 @@ public class FiltroTest {
     }
 
     @Test
-    public void testFiltroPuerto(){
+    public void testFiltroFechaSalidaIgual() {
+        FiltroFechaIgualSalida filtroFechaIgualSalida = new FiltroFechaIgualSalida(ahora);
+        assertTrue(filtroFechaIgualSalida.aplicar(rutaMaritima));
+    }
+
+    @Test
+    public void testFiltroFechaLlegadaIgual() {
+        FiltroFechaIgualLlegada filtroFechaIgualLlegada = new FiltroFechaIgualLlegada(ahora.plus(Duration.ofDays(1)));
+        assertTrue(filtroFechaIgualLlegada.aplicar(rutaMaritima));
+    }
+
+    @Test
+    public void testFiltroPuerto() {
         FiltroPuerto filtroPuerto = new FiltroPuerto("Puerto Madero");
         assertTrue(filtroPuerto.aplicar(rutaMaritima));
     }
