@@ -8,8 +8,6 @@ import ar.edu.unq.po2.tpFinal.terminal.Terminal;
 import ar.edu.unq.po2.tpFinal.viaje.Viaje;
 
 public class Buque {
-
-	private Terminal terminalOrigen;
 	private Terminal terminalDestino;
 	private Viaje viajeAnterior;
 	private Viaje viajeActual;
@@ -19,7 +17,6 @@ public class Buque {
 	public Buque(Viaje viaje, Terminal terminalDestino) {
 		this.viajeAnterior = null;
 		this.viajeActual = viaje;
-		this.terminalOrigen = viaje.getTerminalOrigen();
 		this.terminalDestino = terminalDestino;
 		this.containers = new ArrayList<>();
 	}
@@ -50,7 +47,7 @@ public class Buque {
 	}
 	
 	public void notificarTerminal() {
-		this.estado.notificarTerminalOrigen(terminalOrigen, viajeActual, this, viajeAnterior);
+		this.estado.notificarTerminalOrigen(this.viajeActual.getTerminalOrigen(), viajeActual, this, viajeAnterior);
 		this.estado.notificarTerminalDestino(terminalDestino, viajeActual, this);
 	}
 	
